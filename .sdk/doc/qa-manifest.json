@@ -1,0 +1,24 @@
+{
+  "files": [
+    "SUMMARY.md",
+    "docs/api/consumer.html",
+    "docs/api/index.html",
+    "docs/api/queue.html",
+    "docs/features/test.html",
+    "docs/guides/authentication.html",
+    "docs/guides/concepts.html",
+    "docs/guides/errors.html",
+    "docs/guides/first-call.html",
+    "docs/index.html",
+    "docs/sdks/go.html",
+    "docs/sdks/lua.html",
+    "docs/sdks/php.html",
+    "docs/sdks/py.html",
+    "docs/sdks/rb.html",
+    "docs/sdks/ts.html",
+    "docs/tools/go-cli.html",
+    "docs/tools/go-mcp.html"
+  ],
+  "config": ".sdk/doc/qa/vale.ini",
+  "routes": {}
+}

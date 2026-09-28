@@ -1,0 +1,33 @@
+{
+  "existing": {
+    "consumer": {
+      "CONSUMER00": {
+        "id": "CONSUMER00",
+        "account_id": "ACCOUNT01",
+        "queue_id": "QUEUE01"
+      },
+      "CONSUMER01": {
+        "id": "CONSUMER01",
+        "account_id": "ACCOUNT01",
+        "queue_id": "QUEUE01"
+      },
+      "CONSUMER02": {
+        "id": "CONSUMER02",
+        "account_id": "ACCOUNT01",
+        "queue_id": "QUEUE01"
+      }
+    }
+  },
+  "new": {
+    "consumer": {
+      "consumer_ref01": {}
+    }
+  },
+  "requests": {
+    "DELETE /accounts/{account_id}/queues/{queue_id}/consumers/{consumer_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

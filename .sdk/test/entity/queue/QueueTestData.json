@@ -1,0 +1,255 @@
+{
+  "existing": {
+    "queue": {
+      "QUEUE00": {
+        "acks": [],
+        "consumers": [],
+        "consumers_total_count": 232,
+        "created_on": "se9",
+        "destination": {},
+        "enabled": false,
+        "errors": [],
+        "events": [],
+        "id": "QUEUE00",
+        "jurisdiction": "sef",
+        "messages": [],
+        "modified_on": "sf1",
+        "name": "sf2",
+        "producers": [],
+        "producers_total_count": 244,
+        "queue_id": "QUEUE01",
+        "queue_name": "sf6",
+        "result": {},
+        "result_info": {},
+        "retries": [],
+        "settings": {},
+        "source": {},
+        "success": true,
+        "account_id": "ACCOUNT01",
+        "consumer_id": "CONSUMER01",
+        "subscription_id": "SUBSCRIPTION01"
+      },
+      "QUEUE01": {
+        "acks": [],
+        "consumers": [],
+        "consumers_total_count": 462,
+        "created_on": "s1cf",
+        "destination": {},
+        "enabled": false,
+        "errors": [],
+        "events": [],
+        "id": "QUEUE01",
+        "jurisdiction": "s1d5",
+        "messages": [],
+        "modified_on": "s1d7",
+        "name": "s1d8",
+        "producers": [],
+        "producers_total_count": 474,
+        "queue_id": "QUEUE01",
+        "queue_name": "s1dc",
+        "result": {},
+        "result_info": {},
+        "retries": [],
+        "settings": {},
+        "source": {},
+        "success": true,
+        "account_id": "ACCOUNT01",
+        "consumer_id": "CONSUMER01",
+        "subscription_id": "SUBSCRIPTION01"
+      },
+      "QUEUE02": {
+        "acks": [],
+        "consumers": [],
+        "consumers_total_count": 692,
+        "created_on": "s2b5",
+        "destination": {},
+        "enabled": false,
+        "errors": [],
+        "events": [],
+        "id": "QUEUE02",
+        "jurisdiction": "s2bb",
+        "messages": [],
+        "modified_on": "s2bd",
+        "name": "s2be",
+        "producers": [],
+        "producers_total_count": 704,
+        "queue_id": "QUEUE01",
+        "queue_name": "s2c2",
+        "result": {},
+        "result_info": {},
+        "retries": [],
+        "settings": {},
+        "source": {},
+        "success": true,
+        "account_id": "ACCOUNT01",
+        "consumer_id": "CONSUMER01",
+        "subscription_id": "SUBSCRIPTION01"
+      }
+    }
+  },
+  "new": {
+    "queue": {
+      "queue_ref01": {
+        "acks": [],
+        "consumers": [],
+        "consumers_total_count": 922,
+        "created_on": "s39b",
+        "destination": {},
+        "enabled": false,
+        "errors": [],
+        "events": [],
+        "jurisdiction": "s3a1",
+        "messages": [],
+        "modified_on": "s3a3",
+        "name": "s3a4",
+        "producers": [],
+        "producers_total_count": 934,
+        "queue_id": "QUEUE01",
+        "queue_name": "s3a8",
+        "result": {},
+        "result_info": {},
+        "retries": [],
+        "settings": {},
+        "source": {},
+        "success": true
+      }
+    }
+  },
+  "requests": {
+    "POST /accounts/{account_id}/queues/{queue_id}/consumers": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "POST /accounts/{account_id}/queues/{queue_id}/messages": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "POST /accounts/{account_id}/queues/{queue_id}/messages/ack": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "POST /accounts/{account_id}/queues/{queue_id}/messages/batch": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "POST /accounts/{account_id}/queues/{queue_id}/messages/extend": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "POST /accounts/{account_id}/queues/{queue_id}/messages/peek": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "POST /accounts/{account_id}/queues/{queue_id}/messages/preview": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "POST /accounts/{account_id}/queues/{queue_id}/messages/preview/ack": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "POST /accounts/{account_id}/queues/{queue_id}/messages/pull": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "POST /accounts/{account_id}/queues/{queue_id}/messages/purge": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "POST /accounts/{account_id}/queues/{queue_id}/purge": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "POST /accounts/{account_id}/event_subscriptions/subscriptions": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "POST /accounts/{account_id}/queues": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /accounts/{account_id}/event_subscriptions/subscriptions": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /accounts/{account_id}/queues/{queue_id}/consumers": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /accounts/{account_id}/queues/{queue_id}/metrics": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /accounts/{account_id}/queues/{queue_id}/purge": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /accounts/{account_id}/queues": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /accounts/{account_id}/queues/{queue_id}/consumers/{consumer_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /accounts/{account_id}/queues/{queue_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "PATCH /accounts/{account_id}/queues/{queue_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "PATCH /accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "DELETE /accounts/{account_id}/queues/{queue_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "DELETE /accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "PUT /accounts/{account_id}/queues/{queue_id}/consumers/{consumer_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "PUT /accounts/{account_id}/queues/{queue_id}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

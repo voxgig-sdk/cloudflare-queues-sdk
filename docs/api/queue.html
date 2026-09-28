@@ -1,0 +1,2731 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Queue | Cloudflare Queues</title><link rel="stylesheet" href="../assets/style.css"></head>
+<body><a class="skip" href="#content">Skip to content</a>
+<header class="site-header"><a class="site-title" href="../index.html">Cloudflare Queues<span>SDK documentation</span></a><div class="site-links"><a class="repo-link" href="https://github.com/voxgig-sdk/cloudflare-queues-sdk">voxgig-sdk/cloudflare-queues-sdk</a></div></header>
+<div class="site-notice" role="note"></div>
+<div class="shell"><nav class="site-nav" aria-label="Documentation"><div class="search"><label for="search">Search documentation</label><input id="search" type="search" data-base="../" placeholder="Find a guide or reference"><div id="results" aria-live="polite"></div></div><details><summary>Overview</summary><a href="../index.html">Cloudflare Queues</a></details>
+<details open><summary>API</summary><a href="../api/index.html">API overview</a>
+<a href="../api/consumer.html">Consumer</a>
+<a aria-current="page" href="../api/queue.html">Queue</a><div class="nav-sections"><a class="nav-section" href="#post-accountsaccount_idqueuesqueue_idconsumers">POST /accounts/{account_id}/queues/{queue_id}/consumers</a>
+<a class="nav-section" href="#post-accountsaccount_idqueuesqueue_idmessages">POST /accounts/{account_id}/queues/{queue_id}/messages</a>
+<a class="nav-section" href="#post-accountsaccount_idqueuesqueue_idmessagesack">POST /accounts/{account_id}/queues/{queue_id}/messages/ack</a>
+<a class="nav-section" href="#post-accountsaccount_idqueuesqueue_idmessagesbatch">POST /accounts/{account_id}/queues/{queue_id}/messages/batch</a>
+<a class="nav-section" href="#post-accountsaccount_idqueuesqueue_idmessagesextend">POST /accounts/{account_id}/queues/{queue_id}/messages/extend</a>
+<a class="nav-section" href="#post-accountsaccount_idqueuesqueue_idmessagespeek">POST /accounts/{account_id}/queues/{queue_id}/messages/peek</a>
+<a class="nav-section" href="#post-accountsaccount_idqueuesqueue_idmessagespreview">POST /accounts/{account_id}/queues/{queue_id}/messages/preview</a>
+<a class="nav-section" href="#post-accountsaccount_idqueuesqueue_idmessagespreviewack">POST /accounts/{account_id}/queues/{queue_id}/messages/preview/ack</a>
+<a class="nav-section" href="#post-accountsaccount_idqueuesqueue_idmessagespull">POST /accounts/{account_id}/queues/{queue_id}/messages/pull</a>
+<a class="nav-section" href="#post-accountsaccount_idqueuesqueue_idmessagespurge">POST /accounts/{account_id}/queues/{queue_id}/messages/purge</a>
+<a class="nav-section" href="#post-accountsaccount_idqueuesqueue_idpurge">POST /accounts/{account_id}/queues/{queue_id}/purge</a>
+<a class="nav-section" href="#post-accountsaccount_idevent_subscriptionssubscriptions">POST /accounts/{account_id}/event_subscriptions/subscriptions</a>
+<a class="nav-section" href="#post-accountsaccount_idqueues">POST /accounts/{account_id}/queues</a>
+<a class="nav-section" href="#get-accountsaccount_idevent_subscriptionssubscriptions">GET /accounts/{account_id}/event_subscriptions/subscriptions</a>
+<a class="nav-section" href="#get-accountsaccount_idqueuesqueue_idconsumers">GET /accounts/{account_id}/queues/{queue_id}/consumers</a>
+<a class="nav-section" href="#get-accountsaccount_idqueuesqueue_idmetrics">GET /accounts/{account_id}/queues/{queue_id}/metrics</a>
+<a class="nav-section" href="#get-accountsaccount_idqueuesqueue_idpurge">GET /accounts/{account_id}/queues/{queue_id}/purge</a>
+<a class="nav-section" href="#get-accountsaccount_idqueues">GET /accounts/{account_id}/queues</a>
+<a class="nav-section" href="#get-accountsaccount_idqueuesqueue_idconsumersconsumer_id">GET /accounts/{account_id}/queues/{queue_id}/consumers/{consumer_id}</a>
+<a class="nav-section" href="#get-accountsaccount_idqueuesqueue_id">GET /accounts/{account_id}/queues/{queue_id}</a>
+<a class="nav-section" href="#get-accountsaccount_idevent_subscriptionssubscriptionssubscription_id">GET /accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}</a>
+<a class="nav-section" href="#patch-accountsaccount_idqueuesqueue_id">PATCH /accounts/{account_id}/queues/{queue_id}</a>
+<a class="nav-section" href="#patch-accountsaccount_idevent_subscriptionssubscriptionssubscription_id">PATCH /accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}</a>
+<a class="nav-section" href="#delete-accountsaccount_idqueuesqueue_id">DELETE /accounts/{account_id}/queues/{queue_id}</a>
+<a class="nav-section" href="#delete-accountsaccount_idevent_subscriptionssubscriptionssubscription_id">DELETE /accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}</a>
+<a class="nav-section" href="#put-accountsaccount_idqueuesqueue_idconsumersconsumer_id">PUT /accounts/{account_id}/queues/{queue_id}/consumers/{consumer_id}</a>
+<a class="nav-section" href="#put-accountsaccount_idqueuesqueue_id">PUT /accounts/{account_id}/queues/{queue_id}</a></div></details>
+<details><summary>Guides</summary><a href="../guides/authentication.html">Authentication</a>
+<a href="../guides/first-call.html">Make your first API call</a>
+<a href="../guides/errors.html">Handle errors</a>
+<a href="../guides/concepts.html">Entities, SDKs, and tools</a></details>
+<details><summary>SDKs</summary><a href="../sdks/go.html">Golang</a>
+<a href="../sdks/lua.html">Lua</a>
+<a href="../sdks/php.html">PHP</a>
+<a href="../sdks/py.html">Python</a>
+<a href="../sdks/rb.html">Ruby</a>
+<a href="../sdks/ts.html">TypeScript</a></details>
+<details><summary>Tools</summary><a href="../tools/go-cli.html">Go CLI</a>
+<a href="../tools/go-mcp.html">Go MCP server</a></details>
+<details><summary>Features</summary><a href="../features/test.html">Test transport</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="queue">Queue</h1>
+<h2 id="operations">Operations</h2>
+<p>Every route this entity exposes. Each route links to its own reference on this page.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Route</th>
+<th>SDK operation</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-accountsaccount_idqueuesqueue_idconsumers"><code>/accounts/{account_id}/queues/{queue_id}/consumers</code></a></td>
+<td><code>create</code></td>
+<td>Create Queue Consumer response</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-accountsaccount_idqueuesqueue_idmessages"><code>/accounts/{account_id}/queues/{queue_id}/messages</code></a></td>
+<td><code>create</code></td>
+<td>Successful message ingestion</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-accountsaccount_idqueuesqueue_idmessagesack"><code>/accounts/{account_id}/queues/{queue_id}/messages/ack</code></a></td>
+<td><code>create</code></td>
+<td>Details of ACKs and retries</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-accountsaccount_idqueuesqueue_idmessagesbatch"><code>/accounts/{account_id}/queues/{queue_id}/messages/batch</code></a></td>
+<td><code>create</code></td>
+<td>Successful batch ingestion</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-accountsaccount_idqueuesqueue_idmessagesextend"><code>/accounts/{account_id}/queues/{queue_id}/messages/extend</code></a></td>
+<td><code>create</code></td>
+<td>New lease IDs</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-accountsaccount_idqueuesqueue_idmessagespeek"><code>/accounts/{account_id}/queues/{queue_id}/messages/peek</code></a></td>
+<td><code>create</code></td>
+<td>A batch of peeked messages from the Queue</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-accountsaccount_idqueuesqueue_idmessagespreview"><code>/accounts/{account_id}/queues/{queue_id}/messages/preview</code></a></td>
+<td><code>create</code></td>
+<td>A batch of previewed messages from the Queue</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-accountsaccount_idqueuesqueue_idmessagespreviewack"><code>/accounts/{account_id}/queues/{queue_id}/messages/preview/ack</code></a></td>
+<td><code>create</code></td>
+<td>Result of acknowledging previewed messages</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-accountsaccount_idqueuesqueue_idmessagespull"><code>/accounts/{account_id}/queues/{queue_id}/messages/pull</code></a></td>
+<td><code>create</code></td>
+<td>A batch of messages in the Queue</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-accountsaccount_idqueuesqueue_idmessagespurge"><code>/accounts/{account_id}/queues/{queue_id}/messages/purge</code></a></td>
+<td><code>create</code></td>
+<td>Result of purging peeked messages</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-accountsaccount_idqueuesqueue_idpurge"><code>/accounts/{account_id}/queues/{queue_id}/purge</code></a></td>
+<td><code>create</code></td>
+<td>Updated Queue</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-accountsaccount_idevent_subscriptionssubscriptions"><code>/accounts/{account_id}/event_subscriptions/subscriptions</code></a></td>
+<td><code>create</code></td>
+<td>Successfully created event subscription</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-accountsaccount_idqueues"><code>/accounts/{account_id}/queues</code></a></td>
+<td><code>create</code></td>
+<td>Created Queue</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><a href="#get-accountsaccount_idevent_subscriptionssubscriptions"><code>/accounts/{account_id}/event_subscriptions/subscriptions</code></a></td>
+<td><code>list</code></td>
+<td>List of event subscriptions</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><a href="#get-accountsaccount_idqueuesqueue_idconsumers"><code>/accounts/{account_id}/queues/{queue_id}/consumers</code></a></td>
+<td><code>list</code></td>
+<td>All consumers attached to this Queue</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><a href="#get-accountsaccount_idqueuesqueue_idmetrics"><code>/accounts/{account_id}/queues/{queue_id}/metrics</code></a></td>
+<td><code>list</code></td>
+<td>Queue metrics</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><a href="#get-accountsaccount_idqueuesqueue_idpurge"><code>/accounts/{account_id}/queues/{queue_id}/purge</code></a></td>
+<td><code>list</code></td>
+<td>Details of the requested Queue</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><a href="#get-accountsaccount_idqueues"><code>/accounts/{account_id}/queues</code></a></td>
+<td><code>list</code></td>
+<td>List of all Queues that belong to this account</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><a href="#get-accountsaccount_idqueuesqueue_idconsumersconsumer_id"><code>/accounts/{account_id}/queues/{queue_id}/consumers/{consumer_id}</code></a></td>
+<td><code>load</code></td>
+<td>Get Queue Consumer response</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><a href="#get-accountsaccount_idqueuesqueue_id"><code>/accounts/{account_id}/queues/{queue_id}</code></a></td>
+<td><code>load</code></td>
+<td>Details of the requested Queue</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><a href="#get-accountsaccount_idevent_subscriptionssubscriptionssubscription_id"><code>/accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}</code></a></td>
+<td><code>load</code></td>
+<td>Details about an event subscription</td>
+</tr>
+<tr>
+<td><code>PATCH</code></td>
+<td><a href="#patch-accountsaccount_idqueuesqueue_id"><code>/accounts/{account_id}/queues/{queue_id}</code></a></td>
+<td><code>patch</code></td>
+<td>Updated Queue</td>
+</tr>
+<tr>
+<td><code>PATCH</code></td>
+<td><a href="#patch-accountsaccount_idevent_subscriptionssubscriptionssubscription_id"><code>/accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}</code></a></td>
+<td><code>patch</code></td>
+<td>Successfully created event subscription</td>
+</tr>
+<tr>
+<td><code>DELETE</code></td>
+<td><a href="#delete-accountsaccount_idqueuesqueue_id"><code>/accounts/{account_id}/queues/{queue_id}</code></a></td>
+<td><code>remove</code></td>
+<td>Successful delete</td>
+</tr>
+<tr>
+<td><code>DELETE</code></td>
+<td><a href="#delete-accountsaccount_idevent_subscriptionssubscriptionssubscription_id"><code>/accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}</code></a></td>
+<td><code>remove</code></td>
+<td>Successfully created event subscription</td>
+</tr>
+<tr>
+<td><code>PUT</code></td>
+<td><a href="#put-accountsaccount_idqueuesqueue_idconsumersconsumer_id"><code>/accounts/{account_id}/queues/{queue_id}/consumers/{consumer_id}</code></a></td>
+<td><code>update</code></td>
+<td>Update Queue Consumer response</td>
+</tr>
+<tr>
+<td><code>PUT</code></td>
+<td><a href="#put-accountsaccount_idqueuesqueue_id"><code>/accounts/{account_id}/queues/{queue_id}</code></a></td>
+<td><code>update</code></td>
+<td>Updated Queue</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<p>One example per SDK, generated from the API model. The argument names are the parameters and fields of this entity, and the values are placeholders. The examples are not compiled or executed.</p>
+<h3 id="golang">Golang</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/go.html#set-up-the-client">Golang setup</a>, then call the operations:</p>
+<pre><code class="language-go">queues, err := client.Queue(nil).List(map[string]any{&quot;account_id&quot;: &quot;example&quot;}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(queues)
+queue, err := client.Queue(nil).Load(map[string]any{&quot;account_id&quot;: &quot;example&quot;}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(queue)
+created, err := client.Queue(nil).Create(map[string]any{&quot;account_id&quot;: &quot;example&quot;, &quot;queue_name&quot;: &quot;example&quot;, &quot;result_info&quot;: map[string]any{}}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(created)
+updated, err := client.Queue(nil).Update(map[string]any{&quot;id&quot;: &quot;example_id&quot;, &quot;account_id&quot;: &quot;example&quot;, &quot;consumer_id&quot;: &quot;example&quot;}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(updated)
+removed, err := client.Queue(nil).Remove(map[string]any{&quot;account_id&quot;: &quot;example&quot;}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(removed)
+</code></pre>
+<h3 id="lua">Lua</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/lua.html#set-up-the-client">Lua setup</a>, then call the operations:</p>
+<pre><code class="language-lua">local queues, err = client:Queue():list({ account_id = &quot;example&quot; })
+local queue, err = client:Queue():load({ account_id = &quot;example&quot; })
+local created, err = client:Queue():create({ account_id = &quot;example&quot;, queue_name = &quot;example&quot;, result_info = {} })
+local updated, err = client:Queue():update({ id = &quot;example_id&quot;, account_id = &quot;example&quot;, consumer_id = &quot;example&quot; })
+local removed, err = client:Queue():remove({ account_id = &quot;example&quot; })
+</code></pre>
+<h3 id="php">PHP</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/php.html#set-up-the-client">PHP setup</a>, then call the operations:</p>
+<pre><code class="language-php">$queues = $client-&gt;Queue()-&gt;list([&quot;account_id&quot; =&gt; &quot;example&quot;]);
+$queue = $client-&gt;Queue()-&gt;load([&quot;account_id&quot; =&gt; &quot;example&quot;]);
+$created = $client-&gt;Queue()-&gt;create([&quot;account_id&quot; =&gt; &quot;example&quot;, &quot;queue_name&quot; =&gt; &quot;example&quot;, &quot;result_info&quot; =&gt; []]);
+$updated = $client-&gt;Queue()-&gt;update([&quot;id&quot; =&gt; &quot;example_id&quot;, &quot;account_id&quot; =&gt; &quot;example&quot;, &quot;consumer_id&quot; =&gt; &quot;example&quot;]);
+$client-&gt;Queue()-&gt;remove([&quot;account_id&quot; =&gt; &quot;example&quot;]);
+</code></pre>
+<h3 id="python">Python</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/py.html#set-up-the-client">Python setup</a>, then call the operations:</p>
+<pre><code class="language-py">queues = client.Queue().list({&quot;account_id&quot;: &quot;example&quot;})
+queue = client.Queue().load({&quot;account_id&quot;: &quot;example&quot;})
+created = client.Queue().create({ &quot;account_id&quot;: &quot;example&quot;, &quot;queue_name&quot;: &quot;example&quot;, &quot;result_info&quot;: {} })
+updated = client.Queue().update({&quot;id&quot;: &quot;example_id&quot;, &quot;account_id&quot;: &quot;example&quot;, &quot;consumer_id&quot;: &quot;example&quot;})
+client.Queue().remove({&quot;account_id&quot;: &quot;example&quot;})
+</code></pre>
+<h3 id="ruby">Ruby</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/rb.html#set-up-the-client">Ruby setup</a>, then call the operations:</p>
+<pre><code class="language-rb">queues = client.Queue.list({ &quot;account_id&quot; =&gt; &quot;example&quot; })
+queue = client.Queue.load({ &quot;account_id&quot; =&gt; &quot;example&quot; })
+created = client.Queue.create({ &quot;account_id&quot; =&gt; &quot;example&quot;, &quot;queue_name&quot; =&gt; &quot;example&quot;, &quot;result_info&quot; =&gt; {} })
+updated = client.Queue.update({ &quot;id&quot; =&gt; &quot;example_id&quot;, &quot;account_id&quot; =&gt; &quot;example&quot;, &quot;consumer_id&quot; =&gt; &quot;example&quot; })
+client.Queue.remove({ &quot;account_id&quot; =&gt; &quot;example&quot; })
+</code></pre>
+<h3 id="typescript">TypeScript</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/ts.html#set-up-the-client">TypeScript setup</a>, then call the operations:</p>
+<pre><code class="language-ts">const queues = await client.Queue().list({ account_id: &quot;example&quot; })
+const queue = await client.Queue().load({ account_id: &quot;example&quot; })
+const created = await client.Queue().create({ account_id: &quot;example&quot;, queue_name: &quot;example&quot;, result_info: {} })
+const updated = await client.Queue().update({ id: &quot;example_id&quot;, account_id: &quot;example&quot;, consumer_id: &quot;example&quot; })
+await client.Queue().remove({ account_id: &quot;example&quot; })
+</code></pre>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>acks</code></td>
+<td><code>array</code></td>
+<td>No</td>
+<td>Acks</td>
+</tr>
+<tr>
+<td><code>consumers</code></td>
+<td><code>array</code></td>
+<td>No</td>
+<td>Consumers</td>
+</tr>
+<tr>
+<td><code>consumers_total_count</code></td>
+<td><code>number</code></td>
+<td>No</td>
+<td>Consumers Total Count</td>
+</tr>
+<tr>
+<td><code>created_on</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Created On</td>
+</tr>
+<tr>
+<td><code>destination</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Destination configuration for the subscription</td>
+</tr>
+<tr>
+<td><code>enabled</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the subscription is active</td>
+</tr>
+<tr>
+<td><code>errors</code></td>
+<td><code>array</code></td>
+<td>No</td>
+<td>Errors</td>
+</tr>
+<tr>
+<td><code>events</code></td>
+<td><code>array</code></td>
+<td>No</td>
+<td>List of event types this subscription handles</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Id</td>
+</tr>
+<tr>
+<td><code>jurisdiction</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Jurisdiction</td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array</code></td>
+<td>No</td>
+<td>Messages</td>
+</tr>
+<tr>
+<td><code>modified_on</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Modified On</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Name of the subscription</td>
+</tr>
+<tr>
+<td><code>producers</code></td>
+<td><code>array</code></td>
+<td>No</td>
+<td>Producers</td>
+</tr>
+<tr>
+<td><code>producers_total_count</code></td>
+<td><code>number</code></td>
+<td>No</td>
+<td>Producers Total Count</td>
+</tr>
+<tr>
+<td><code>queue_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Queue Id</td>
+</tr>
+<tr>
+<td><code>queue_name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>Queue Name</td>
+</tr>
+<tr>
+<td><code>result</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Response body representing a consumer</td>
+</tr>
+<tr>
+<td><code>result_info</code></td>
+<td><code>object</code></td>
+<td>Yes</td>
+<td>Result Info</td>
+</tr>
+<tr>
+<td><code>retries</code></td>
+<td><code>array</code></td>
+<td>No</td>
+<td>Retries</td>
+</tr>
+<tr>
+<td><code>settings</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Settings</td>
+</tr>
+<tr>
+<td><code>source</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Source configuration for the subscription</td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="create">create</h2>
+<h3 id="post-accountsaccount_idqueuesqueue_idconsumers" class="operation" data-method="post"><code>POST</code> /accounts/{account_id}/queues/{queue_id}/consumers</h3>
+<p>Operation ID: <code>queues-create-consumer</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>queue_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="request-body">Request body</h4>
+<p><code>application/json</code></p>
+<p>The request body is <code>object or object</code>.</p>
+<h4 id="responses">Responses</h4>
+<h5 id="200-create-queue-consumer-response" class="status" data-status="2xx">200: Create Queue Consumer response</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-failure-response">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-accountsaccount_idqueuesqueue_idmessages" class="operation" data-method="post"><code>POST</code> /accounts/{account_id}/queues/{queue_id}/messages</h3>
+<p>Operation ID: <code>queues-push-message</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-1">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>queue_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="request-body-1">Request body</h4>
+<p><code>application/json</code></p>
+<p>The request body is <code>object and object or object</code>.</p>
+<h4 id="responses-1">Responses</h4>
+<h5 id="200-successful-message-ingestion" class="status" data-status="2xx">200: Successful message ingestion</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-failure-response-1">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-accountsaccount_idqueuesqueue_idmessagesack" class="operation" data-method="post"><code>POST</code> /accounts/{account_id}/queues/{queue_id}/messages/ack</h3>
+<p>Operation ID: <code>queues-ack-messages</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-2">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>queue_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="request-body-2">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>acks</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>acks[].lease_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>An ID that represents an &quot;in-flight&quot; message that has been pulled from a Queue. You must hold on to this ID and use it to acknowledge this message.</td>
+</tr>
+<tr>
+<td><code>retries</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>retries[].delay_seconds</code></td>
+<td><code>number</code></td>
+<td>No</td>
+<td>The number of seconds to delay before making the message available for another attempt.</td>
+</tr>
+<tr>
+<td><code>retries[].lease_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>An ID that represents an &quot;in-flight&quot; message that has been pulled from a Queue. You must hold on to this ID and use it to acknowledge this message.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-2">Responses</h4>
+<h5 id="200-details-of-acks-and-retries" class="status" data-status="2xx">200: Details of ACKs and retries</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-failure-response-2">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-accountsaccount_idqueuesqueue_idmessagesbatch" class="operation" data-method="post"><code>POST</code> /accounts/{account_id}/queues/{queue_id}/messages/batch</h3>
+<p>Operation ID: <code>queues-push-messages</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-3">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>queue_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="request-body-3">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>delay_seconds</code></td>
+<td><code>number</code></td>
+<td>No</td>
+<td>The number of seconds to wait for attempting to deliver this batch to consumers</td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of object and object or object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-3">Responses</h4>
+<h5 id="200-successful-batch-ingestion" class="status" data-status="2xx">200: Successful batch ingestion</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-failure-response-3">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-accountsaccount_idqueuesqueue_idmessagesextend" class="operation" data-method="post"><code>POST</code> /accounts/{account_id}/queues/{queue_id}/messages/extend</h3>
+<p>Operation ID: <code>queues-extend-messages</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-4">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>queue_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="request-body-4">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>extend</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>extend[].lease_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>An ID that represents an &quot;in-flight&quot; message that has been pulled from a Queue. You must hold on to this ID and use it to acknowledge this message.</td>
+</tr>
+<tr>
+<td><code>visibility_timeout_ms</code></td>
+<td><code>number</code></td>
+<td>No</td>
+<td>The number of milliseconds that a message is exclusively leased. After the timeout, the message becomes available for another attempt.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-4">Responses</h4>
+<h5 id="200-new-lease-ids" class="status" data-status="2xx">200: New lease IDs</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-failure-response-4">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-accountsaccount_idqueuesqueue_idmessagespeek" class="operation" data-method="post"><code>POST</code> /accounts/{account_id}/queues/{queue_id}/messages/peek</h3>
+<p>Operation ID: <code>queues-peek-messages</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-5">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>queue_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="request-body-5">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>batch_size</code></td>
+<td><code>number</code></td>
+<td>No</td>
+<td>The maximum number of messages to include in a batch.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-5">Responses</h4>
+<h5 id="200-a-batch-of-peeked-messages-from-the-queue" class="status" data-status="2xx">200: A batch of peeked messages from the Queue</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-failure-response-5">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-accountsaccount_idqueuesqueue_idmessagespreview" class="operation" data-method="post"><code>POST</code> /accounts/{account_id}/queues/{queue_id}/messages/preview</h3>
+<p>Operation ID: <code>queues-preview-messages</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-6">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>queue_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="request-body-6">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>batch_size</code></td>
+<td><code>number</code></td>
+<td>No</td>
+<td>The maximum number of messages to include in a batch.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-6">Responses</h4>
+<h5 id="200-a-batch-of-previewed-messages-from-the-queue" class="status" data-status="2xx">200: A batch of previewed messages from the Queue</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-failure-response-6">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-accountsaccount_idqueuesqueue_idmessagespreviewack" class="operation" data-method="post"><code>POST</code> /accounts/{account_id}/queues/{queue_id}/messages/preview/ack</h3>
+<p>Operation ID: <code>queues-ack-preview-messages</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-7">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>queue_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="request-body-7">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>acks</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>acks[].lease_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>An ID that represents an &quot;in-flight&quot; message that has been pulled from a Queue. You must hold on to this ID and use it to acknowledge this message.</td>
+</tr>
+<tr>
+<td><code>retries</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>retries[].delay_seconds</code></td>
+<td><code>number</code></td>
+<td>No</td>
+<td>The number of seconds to delay before making the message available for another attempt.</td>
+</tr>
+<tr>
+<td><code>retries[].lease_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>An ID that represents an &quot;in-flight&quot; message that has been pulled from a Queue. You must hold on to this ID and use it to acknowledge this message.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-7">Responses</h4>
+<h5 id="200-result-of-acknowledging-previewed-messages" class="status" data-status="2xx">200: Result of acknowledging previewed messages</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-failure-response-7">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-accountsaccount_idqueuesqueue_idmessagespull" class="operation" data-method="post"><code>POST</code> /accounts/{account_id}/queues/{queue_id}/messages/pull</h3>
+<p>Operation ID: <code>queues-pull-messages</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-8">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>queue_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="request-body-8">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>batch_size</code></td>
+<td><code>number</code></td>
+<td>No</td>
+<td>The maximum number of messages to include in a batch.</td>
+</tr>
+<tr>
+<td><code>visibility_timeout_ms</code></td>
+<td><code>number</code></td>
+<td>No</td>
+<td>The number of milliseconds that a message is exclusively leased. After the timeout, the message becomes available for another attempt.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-8">Responses</h4>
+<h5 id="200-a-batch-of-messages-in-the-queue" class="status" data-status="2xx">200: A batch of messages in the Queue</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-failure-response-8">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-accountsaccount_idqueuesqueue_idmessagespurge" class="operation" data-method="post"><code>POST</code> /accounts/{account_id}/queues/{queue_id}/messages/purge</h3>
+<p>Operation ID: <code>queues-purge-messages</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-9">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>queue_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="request-body-9">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>refs</code></td>
+<td><code>array of object</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>refs[].ref</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>An opaque reference to a peeked message. You must hold on to this value and use it to purge the message.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-9">Responses</h4>
+<h5 id="200-result-of-purging-peeked-messages" class="status" data-status="2xx">200: Result of purging peeked messages</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-failure-response-9">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-accountsaccount_idqueuesqueue_idpurge" class="operation" data-method="post"><code>POST</code> /accounts/{account_id}/queues/{queue_id}/purge</h3>
+<p>Operation ID: <code>queues-purge</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-10">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>queue_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="request-body-10">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>delete_messages_permanently</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Confirms that all messages will be permanently deleted.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-10">Responses</h4>
+<h5 id="200-updated-queue" class="status" data-status="2xx">200: Updated Queue</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-failure-response-10">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-accountsaccount_idevent_subscriptionssubscriptions" class="operation" data-method="post"><code>POST</code> /accounts/{account_id}/event_subscriptions/subscriptions</h3>
+<p>Operation ID: <code>subscriptions-create</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-11">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="request-body-11">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>destination</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Destination configuration for the subscription</td>
+</tr>
+<tr>
+<td><code>enabled</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the subscription is active</td>
+</tr>
+<tr>
+<td><code>events</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>List of event types this subscription handles</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Name of the subscription</td>
+</tr>
+<tr>
+<td><code>source</code></td>
+<td><code>object or object or object or object or object or object or object or object or object</code></td>
+<td>No</td>
+<td>Source configuration for the subscription</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-11">Responses</h4>
+<h5 id="200-successfully-created-event-subscription" class="status" data-status="2xx">200: Successfully created event subscription</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="400-invalid-request-body-or-validation-errors" class="status" data-status="4xx">400: Invalid request body or validation errors</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="404-queue-does-not-exist-or-resource-not-found-on-source" class="status" data-status="4xx">404: Queue does not exist or resource not found on source</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="405-multiple-subscriptions-on-same-resource-not-supported" class="status" data-status="4xx">405: Multiple subscriptions on same resource not supported</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-accountsaccount_idqueues" class="operation" data-method="post"><code>POST</code> /accounts/{account_id}/queues</h3>
+<p>Operation ID: <code>queues-create</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-12">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="request-body-12">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>jurisdiction</code></td>
+<td><code>enum: eu, us, fedramp</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>queue_name</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-12">Responses</h4>
+<h5 id="200-created-queue" class="status" data-status="2xx">200: Created Queue</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-failure-response-11">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="list">list</h2>
+<h3 id="get-accountsaccount_idevent_subscriptionssubscriptions" class="operation" data-method="get"><code>GET</code> /accounts/{account_id}/event_subscriptions/subscriptions</h3>
+<p>Operation ID: <code>subscriptions-list</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-13">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>page</code> | <code>query</code> | <code>integer</code> | No | Page number for pagination |
+| <code>per_page</code> | <code>query</code> | <code>integer</code> | No | Number of items per page |
+| <code>order</code> | <code>query</code> | <code>enum: created_at, name, enabled, source</code> | No | Field to sort by |
+| <code>direction</code> | <code>query</code> | <code>enum: asc, desc</code> | No | Sort direction |</p>
+<h4 id="responses-13">Responses</h4>
+<h5 id="200-list-of-event-subscriptions" class="status" data-status="2xx">200: List of event subscriptions</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-failure-response-12">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-accountsaccount_idqueuesqueue_idconsumers" class="operation" data-method="get"><code>GET</code> /accounts/{account_id}/queues/{queue_id}/consumers</h3>
+<p>Operation ID: <code>queues-list-consumers</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-14">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>queue_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="responses-14">Responses</h4>
+<h5 id="200-all-consumers-attached-to-this-queue" class="status" data-status="2xx">200: All consumers attached to this Queue</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-failure-response-13">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-accountsaccount_idqueuesqueue_idmetrics" class="operation" data-method="get"><code>GET</code> /accounts/{account_id}/queues/{queue_id}/metrics</h3>
+<p>Operation ID: <code>queues-get-metrics</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-15">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>queue_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="responses-15">Responses</h4>
+<h5 id="200-queue-metrics" class="status" data-status="2xx">200: Queue metrics</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<p><code>text/event-stream</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>backlog_bytes</code></td>
+<td><code>number</code></td>
+<td>Yes</td>
+<td>The size in bytes of unacknowledged messages in the queue.</td>
+</tr>
+<tr>
+<td><code>backlog_count</code></td>
+<td><code>number</code></td>
+<td>Yes</td>
+<td>The number of unacknowledged messages in the queue.</td>
+</tr>
+<tr>
+<td><code>oldest_message_timestamp_ms</code></td>
+<td><code>number</code></td>
+<td>Yes</td>
+<td>Unix timestamp in milliseconds of the oldest unacknowledged message in the queue. Returns 0 if unknown.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="4xx-failure-response-14">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-accountsaccount_idqueuesqueue_idpurge" class="operation" data-method="get"><code>GET</code> /accounts/{account_id}/queues/{queue_id}/purge</h3>
+<p>Operation ID: <code>queues-purge-get</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-16">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>queue_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="responses-16">Responses</h4>
+<h5 id="200-details-of-the-requested-queue" class="status" data-status="2xx">200: Details of the requested Queue</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-failure-response-15">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-accountsaccount_idqueues" class="operation" data-method="get"><code>GET</code> /accounts/{account_id}/queues</h3>
+<p>Operation ID: <code>queues-list</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-17">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="responses-17">Responses</h4>
+<h5 id="200-list-of-all-queues-that-belong-to-this-account" class="status" data-status="2xx">200: List of all Queues that belong to this account</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-failure-response-16">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="load">load</h2>
+<h3 id="get-accountsaccount_idqueuesqueue_idconsumersconsumer_id" class="operation" data-method="get"><code>GET</code> /accounts/{account_id}/queues/{queue_id}/consumers/{consumer_id}</h3>
+<p>Operation ID: <code>queues-get-consumer</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-18">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>consumer_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>queue_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="responses-18">Responses</h4>
+<h5 id="200-get-queue-consumer-response" class="status" data-status="2xx">200: Get Queue Consumer response</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-get-queue-consumer-response-failure">4XX: Get Queue Consumer response failure</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-accountsaccount_idqueuesqueue_id" class="operation" data-method="get"><code>GET</code> /accounts/{account_id}/queues/{queue_id}</h3>
+<p>Operation ID: <code>queues-get</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-19">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>queue_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="responses-19">Responses</h4>
+<h5 id="200-details-of-the-requested-queue-1" class="status" data-status="2xx">200: Details of the requested Queue</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-failure-response-17">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get-accountsaccount_idevent_subscriptionssubscriptionssubscription_id" class="operation" data-method="get"><code>GET</code> /accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}</h3>
+<p>Operation ID: <code>subscriptions-get</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-20">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>subscription_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="responses-20">Responses</h4>
+<h5 id="200-details-about-an-event-subscription" class="status" data-status="2xx">200: Details about an event subscription</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="404-event-subscription-does-not-exist" class="status" data-status="4xx">404: Event subscription does not exist</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="patch">patch</h2>
+<h3 id="patch-accountsaccount_idqueuesqueue_id" class="operation" data-method="patch"><code>PATCH</code> /accounts/{account_id}/queues/{queue_id}</h3>
+<p>Operation ID: <code>queues-update-partial</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-21">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>queue_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="request-body-13">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>consumers</code></td>
+<td><code>array of object or object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>consumers_total_count</code></td>
+<td><code>number</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>created_on</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jurisdiction</code></td>
+<td><code>enum: eu, us, fedramp</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>modified_on</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>producers</code></td>
+<td><code>array of object or object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>producers_total_count</code></td>
+<td><code>number</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>queue_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>queue_name</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>settings</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>settings.delivery_delay</code></td>
+<td><code>number</code></td>
+<td>No</td>
+<td>Number of seconds to delay delivery of all messages to consumers.</td>
+</tr>
+<tr>
+<td><code>settings.delivery_paused</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Indicates if message delivery to consumers is currently paused.</td>
+</tr>
+<tr>
+<td><code>settings.message_retention_period</code></td>
+<td><code>number</code></td>
+<td>No</td>
+<td>Number of seconds after which an unconsumed message will be delayed.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-21">Responses</h4>
+<h5 id="200-updated-queue-1" class="status" data-status="2xx">200: Updated Queue</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-failure-response-18">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="patch-accountsaccount_idevent_subscriptionssubscriptionssubscription_id" class="operation" data-method="patch"><code>PATCH</code> /accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}</h3>
+<p>Operation ID: <code>subscriptions-patch</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-22">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>subscription_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="request-body-14">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>destination</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Destination configuration for the subscription</td>
+</tr>
+<tr>
+<td><code>enabled</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the subscription is active</td>
+</tr>
+<tr>
+<td><code>events</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>List of event types this subscription handles</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Name of the subscription</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-22">Responses</h4>
+<h5 id="200-successfully-created-event-subscription-1" class="status" data-status="2xx">200: Successfully created event subscription</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="400-invalid-request-body-or-validation-errors-1" class="status" data-status="4xx">400: Invalid request body or validation errors</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="404-queue-does-not-exist-or-resource-not-found-on-source-1" class="status" data-status="4xx">404: Queue does not exist or resource not found on source</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="remove">remove</h2>
+<h3 id="delete-accountsaccount_idqueuesqueue_id" class="operation" data-method="delete"><code>DELETE</code> /accounts/{account_id}/queues/{queue_id}</h3>
+<p>Operation ID: <code>queues-delete</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-23">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>queue_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="responses-23">Responses</h4>
+<h5 id="200-successful-delete" class="status" data-status="2xx">200: Successful delete</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: true</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="4xx-failure-response-19">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delete-accountsaccount_idevent_subscriptionssubscriptionssubscription_id" class="operation" data-method="delete"><code>DELETE</code> /accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}</h3>
+<p>Operation ID: <code>subscriptions-delete</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-24">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>subscription_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="responses-24">Responses</h4>
+<h5 id="200-successfully-created-event-subscription-2" class="status" data-status="2xx">200: Successfully created event subscription</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-failure-response-20">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="update">update</h2>
+<h3 id="put-accountsaccount_idqueuesqueue_idconsumersconsumer_id" class="operation" data-method="put"><code>PUT</code> /accounts/{account_id}/queues/{queue_id}/consumers/{consumer_id}</h3>
+<p>Operation ID: <code>queues-update-consumer</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-25">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>consumer_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>queue_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="request-body-15">Request body</h4>
+<p><code>application/json</code></p>
+<p>The request body is <code>object or object</code>.</p>
+<h4 id="responses-25">Responses</h4>
+<h5 id="200-update-queue-consumer-response" class="status" data-status="2xx">200: Update Queue Consumer response</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-update-queue-consumer-response-failure">4XX: Update Queue Consumer response failure</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="put-accountsaccount_idqueuesqueue_id" class="operation" data-method="put"><code>PUT</code> /accounts/{account_id}/queues/{queue_id}</h3>
+<p>Operation ID: <code>queues-update</code>.</p>
+<p>Authentication: API key in the header (<code>api_email</code>) or API key in the header (<code>api_key</code>) or bearer token (<code>api_token</code>).</p>
+<h4 id="parameters-26">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>queue_id</code> | <code>path</code> | <code>string</code> | Yes |  |
+| <code>account_id</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="request-body-16">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>consumers</code></td>
+<td><code>array of object or object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>consumers_total_count</code></td>
+<td><code>number</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>created_on</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jurisdiction</code></td>
+<td><code>enum: eu, us, fedramp</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>modified_on</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>producers</code></td>
+<td><code>array of object or object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>producers_total_count</code></td>
+<td><code>number</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>queue_id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>queue_name</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>settings</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>settings.delivery_delay</code></td>
+<td><code>number</code></td>
+<td>No</td>
+<td>Number of seconds to delay delivery of all messages to consumers.</td>
+</tr>
+<tr>
+<td><code>settings.delivery_paused</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Indicates if message delivery to consumers is currently paused.</td>
+</tr>
+<tr>
+<td><code>settings.message_retention_period</code></td>
+<td><code>number</code></td>
+<td>No</td>
+<td>Number of seconds after which an unconsumed message will be delayed.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-26">Responses</h4>
+<h5 id="200-updated-queue-2" class="status" data-status="2xx">200: Updated Queue</h5>
+<p><code>application/json</code></p>
+<p>The response is <code>object and object</code>.</p>
+<h5 id="4xx-failure-response-21">4XX: Failure response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>integer</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td><code>enum: false</code></td>
+<td>No</td>
+<td>Indicates if the API call was successful or not.</td>
+</tr>
+</tbody>
+</table>
+</main></div>
+<script src="../assets/search.js" defer></script></body></html>

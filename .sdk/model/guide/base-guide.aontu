@@ -1,0 +1,107 @@
+# Generated from the API definition and overwritten on every build: do not
+# edit this file. Put customizations in the guide entry file, which includes
+# this one and overrides its defaults:
+#   guide.aontu
+
+guide: {
+  metrics: count: entity: 2
+  metrics: count: path: 17
+  metrics: count: method: 28
+
+  entity: consumer: {
+    path: "/accounts/{account_id}/queues/{queue_id}/consumers/{consumer_id}": {
+      rename: param: "consumer_id": *"id"
+      op: remove: method: *DELETE
+    }
+  }
+
+  entity: queue: {
+    path: "/accounts/{account_id}/event_subscriptions/subscriptions": {
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}": {
+      op: load: method: *GET
+      op: patch: method: *PATCH
+      op: remove: method: *DELETE
+    }
+    path: "/accounts/{account_id}/queues": {
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/accounts/{account_id}/queues/{queue_id}": {
+      rename: param: "queue_id": *"id"
+      op: load: method: *GET
+      op: patch: method: *PATCH
+      op: remove: method: *DELETE
+      op: update: method: *PUT
+    }
+    path: "/accounts/{account_id}/queues/{queue_id}/consumers": {
+      action: "consumer": {}
+      rename: param: "queue_id": *"id"
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/accounts/{account_id}/queues/{queue_id}/consumers/{consumer_id}": {
+      rename: param: "queue_id": *"id"
+      op: load: method: *GET
+      op: update: method: *PUT
+    }
+    path: "/accounts/{account_id}/queues/{queue_id}/messages": {
+      action: "message": {}
+      rename: param: "queue_id": *"id"
+      op: create: method: *POST
+    }
+    path: "/accounts/{account_id}/queues/{queue_id}/messages/ack": {
+      action: "message_ack": {}
+      rename: param: "queue_id": *"id"
+      op: create: method: *POST
+    }
+    path: "/accounts/{account_id}/queues/{queue_id}/messages/batch": {
+      action: "message_batch": {}
+      rename: param: "queue_id": *"id"
+      op: create: method: *POST
+    }
+    path: "/accounts/{account_id}/queues/{queue_id}/messages/extend": {
+      action: "message_extend": {}
+      rename: param: "queue_id": *"id"
+      op: create: method: *POST
+    }
+    path: "/accounts/{account_id}/queues/{queue_id}/messages/peek": {
+      action: "message_peek": {}
+      rename: param: "queue_id": *"id"
+      op: create: method: *POST
+    }
+    path: "/accounts/{account_id}/queues/{queue_id}/messages/preview": {
+      action: "message_preview": {}
+      rename: param: "queue_id": *"id"
+      op: create: method: *POST
+    }
+    path: "/accounts/{account_id}/queues/{queue_id}/messages/preview/ack": {
+      rename: param: "queue_id": *"id"
+      op: create: method: *POST
+    }
+    path: "/accounts/{account_id}/queues/{queue_id}/messages/pull": {
+      action: "message_pull": {}
+      rename: param: "queue_id": *"id"
+      op: create: method: *POST
+    }
+    path: "/accounts/{account_id}/queues/{queue_id}/messages/purge": {
+      action: "message_purge": {}
+      rename: param: "queue_id": *"id"
+      op: create: method: *POST
+    }
+    path: "/accounts/{account_id}/queues/{queue_id}/metrics": {
+      action: "metric": {}
+      rename: param: "queue_id": *"id"
+      op: list: method: *GET
+    }
+    path: "/accounts/{account_id}/queues/{queue_id}/purge": {
+      action: "purge": {}
+      rename: param: "queue_id": *"id"
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+  }
+
+}

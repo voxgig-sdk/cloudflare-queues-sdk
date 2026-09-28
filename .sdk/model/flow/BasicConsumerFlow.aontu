@@ -1,0 +1,9 @@
+# BasicConsumerFlow
+
+main: kit: flow: BasicConsumerFlow:
+{
+  entity: "consumer",
+  kind: "basic",
+  name: "BasicConsumerFlow",
+  "key$": "BasicConsumerFlow"
+}

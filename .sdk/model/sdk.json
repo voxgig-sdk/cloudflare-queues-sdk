@@ -1,0 +1,3188 @@
+{
+  "def": "cf-queues-openapi.json",
+  "main": {
+    "def": {
+      "desc": ""
+    },
+    "kit": {
+      "author": {
+        "name": "",
+        "url": ""
+      },
+      "config": {
+        "docs_order": [
+          "ts",
+          "py",
+          "php",
+          "go",
+          "rb",
+          "lua"
+        ],
+        "headers": {
+          "content-type": "application/json"
+        },
+        "repr": "auto"
+      },
+      "contributor": {},
+      "doc": {
+        "active": true,
+        "assets": {
+          "path": ".sdk/doc/assets"
+        },
+        "brand": {
+          "label": "",
+          "notice": "",
+          "shortNotice": "",
+          "url": ""
+        },
+        "ci": {
+          "active": true,
+          "branch": "main"
+        },
+        "content": {
+          "path": ".sdk/doc/content"
+        },
+        "edition": {
+          "github-pages": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "github-pages",
+            "name": "github-pages",
+            "origname": "",
+            "output": {
+              "path": "docs"
+            },
+            "package": "@voxgig/docgen",
+            "published": false,
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          },
+          "summary": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "summary",
+            "name": "summary",
+            "origname": "",
+            "output": {
+              "path": "SUMMARY.md"
+            },
+            "package": "@voxgig/docgen",
+            "published": false,
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          }
+        },
+        "qa": {
+          "vocabulary": []
+        },
+        "style": {
+          "color": {
+            "accent": "#00c6d8",
+            "background": "#f5f5f9",
+            "darkBackground": "#0f1117",
+            "darkText": "#e6edf3",
+            "primary": "#e70042",
+            "text": "#0a0a0a"
+          },
+          "font": "Nunito, system-ui, sans-serif",
+          "fontFile": "",
+          "headingFont": "Nunito, system-ui, sans-serif",
+          "headingFontFile": "",
+          "logo": "",
+          "mode": "light",
+          "mono": "ui-monospace, monospace",
+          "monoFile": ""
+        },
+        "target": {}
+      },
+      "entity": {
+        "consumer": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": {
+            "id": {
+              "a": true,
+              "h": "Id",
+              "n": "id",
+              "r": false,
+              "t": "`$STRING`"
+            }
+          },
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
+          "name": "consumer",
+          "op": {
+            "remove": {
+              "input": "data",
+              "name": "remove",
+              "points": [
+                {
+                  "a": true,
+                  "co": {
+                    "id": "DELETE /accounts/{account_id}/queues/{queue_id}/consumers/{consumer_id}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "consumer_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "queue_id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "DELETE",
+                  "o": "/accounts/{account_id}/queues/{queue_id}/consumers/{consumer_id}",
+                  "q": {
+                    "exist": [
+                      "account_id",
+                      "id",
+                      "queue_id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "consumer_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "queue_id"
+                    },
+                    {
+                      "lit": "consumers"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "$.main.kit.entity.queue"
+              ]
+            ]
+          }
+        },
+        "queue": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": {
+            "acks": {
+              "a": true,
+              "h": "Acks",
+              "n": "acks",
+              "r": false,
+              "t": "`$ARRAY`"
+            },
+            "consumers": {
+              "a": true,
+              "h": "Consumers",
+              "n": "consumers",
+              "r": false,
+              "ro": true,
+              "t": "`$ARRAY`"
+            },
+            "consumers_total_count": {
+              "a": true,
+              "h": "Consumers Total Count",
+              "n": "consumers_total_count",
+              "r": false,
+              "ro": true,
+              "t": "`$NUMBER`"
+            },
+            "created_on": {
+              "a": true,
+              "h": "Created On",
+              "n": "created_on",
+              "r": false,
+              "ro": true,
+              "t": "`$STRING`"
+            },
+            "destination": {
+              "a": true,
+              "h": "Destination",
+              "n": "destination",
+              "r": false,
+              "sh": "Destination configuration for the subscription",
+              "t": "`$OBJECT`"
+            },
+            "enabled": {
+              "a": true,
+              "h": "Enabled",
+              "n": "enabled",
+              "r": false,
+              "sh": "Whether the subscription is active",
+              "t": "`$BOOLEAN`"
+            },
+            "errors": {
+              "a": true,
+              "h": "Errors",
+              "n": "errors",
+              "r": false,
+              "t": "`$ARRAY`"
+            },
+            "events": {
+              "a": true,
+              "h": "Events",
+              "n": "events",
+              "r": false,
+              "sh": "List of event types this subscription handles",
+              "t": "`$ARRAY`"
+            },
+            "id": {
+              "a": true,
+              "h": "Id",
+              "n": "id",
+              "r": false,
+              "t": "`$STRING`"
+            },
+            "jurisdiction": {
+              "a": true,
+              "h": "Jurisdiction",
+              "n": "jurisdiction",
+              "r": false,
+              "t": "`$STRING`"
+            },
+            "messages": {
+              "a": true,
+              "h": "Messages",
+              "n": "messages",
+              "r": false,
+              "t": "`$ARRAY`"
+            },
+            "modified_on": {
+              "a": true,
+              "h": "Modified On",
+              "n": "modified_on",
+              "r": false,
+              "ro": true,
+              "t": "`$STRING`"
+            },
+            "name": {
+              "a": true,
+              "h": "Name",
+              "n": "name",
+              "r": false,
+              "sh": "Name of the subscription",
+              "t": "`$STRING`"
+            },
+            "producers": {
+              "a": true,
+              "h": "Producers",
+              "n": "producers",
+              "r": false,
+              "ro": true,
+              "t": "`$ARRAY`",
+              "union": {
+                "branches": 2,
+                "count": 1,
+                "depth": 1
+              }
+            },
+            "producers_total_count": {
+              "a": true,
+              "h": "Producers Total Count",
+              "n": "producers_total_count",
+              "r": false,
+              "ro": true,
+              "t": "`$NUMBER`"
+            },
+            "queue_id": {
+              "a": true,
+              "h": "Queue Id",
+              "n": "queue_id",
+              "r": false,
+              "ro": true,
+              "t": "`$STRING`"
+            },
+            "queue_name": {
+              "a": true,
+              "h": "Queue Name",
+              "n": "queue_name",
+              "op": {
+                "patch": {
+                  "req": false,
+                  "type": "`$STRING`"
+                },
+                "update": {
+                  "req": false,
+                  "type": "`$STRING`"
+                }
+              },
+              "r": true,
+              "t": "`$STRING`"
+            },
+            "result": {
+              "a": true,
+              "h": "Result",
+              "n": "result",
+              "op": {
+                "load": {
+                  "req": true,
+                  "type": "`$OBJECT`"
+                }
+              },
+              "r": false,
+              "sh": "Response body representing a consumer",
+              "t": "`$OBJECT`"
+            },
+            "result_info": {
+              "a": true,
+              "h": "Result Info",
+              "n": "result_info",
+              "op": {
+                "list": {
+                  "req": false,
+                  "type": "`$OBJECT`"
+                }
+              },
+              "r": true,
+              "t": "`$OBJECT`"
+            },
+            "retries": {
+              "a": true,
+              "h": "Retries",
+              "n": "retries",
+              "r": false,
+              "t": "`$ARRAY`"
+            },
+            "settings": {
+              "a": true,
+              "h": "Settings",
+              "n": "settings",
+              "r": false,
+              "t": "`$OBJECT`"
+            },
+            "source": {
+              "a": true,
+              "h": "Source",
+              "n": "source",
+              "r": false,
+              "sh": "Source configuration for the subscription",
+              "t": "`$OBJECT`",
+              "union": {
+                "branches": 9,
+                "count": 1,
+                "depth": 0
+              }
+            },
+            "success": {
+              "a": true,
+              "h": "Success",
+              "n": "success",
+              "r": false,
+              "sh": "Indicates if the API call was successful or not.",
+              "t": "`$BOOLEAN`"
+            }
+          },
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
+          "name": "queue",
+          "op": {
+            "create": {
+              "input": "data",
+              "name": "create",
+              "points": [
+                {
+                  "a": true,
+                  "co": {
+                    "id": "POST /accounts/{account_id}/queues/{queue_id}/consumers",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "POST",
+                  "o": "/accounts/{account_id}/queues/{queue_id}/consumers",
+                  "q": {
+                    "$action": "consumer",
+                    "exist": [
+                      "account_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "queue_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "consumers"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "POST /accounts/{account_id}/queues/{queue_id}/messages",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "POST",
+                  "o": "/accounts/{account_id}/queues/{queue_id}/messages",
+                  "q": {
+                    "$action": "message",
+                    "exist": [
+                      "account_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "queue_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "messages"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "POST /accounts/{account_id}/queues/{queue_id}/messages/ack",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "POST",
+                  "o": "/accounts/{account_id}/queues/{queue_id}/messages/ack",
+                  "q": {
+                    "$action": "message_ack",
+                    "exist": [
+                      "account_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "queue_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "messages"
+                    },
+                    {
+                      "lit": "ack"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "POST /accounts/{account_id}/queues/{queue_id}/messages/batch",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "POST",
+                  "o": "/accounts/{account_id}/queues/{queue_id}/messages/batch",
+                  "q": {
+                    "$action": "message_batch",
+                    "exist": [
+                      "account_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "queue_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "messages"
+                    },
+                    {
+                      "lit": "batch"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "POST /accounts/{account_id}/queues/{queue_id}/messages/extend",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "POST",
+                  "o": "/accounts/{account_id}/queues/{queue_id}/messages/extend",
+                  "q": {
+                    "$action": "message_extend",
+                    "exist": [
+                      "account_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "queue_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "messages"
+                    },
+                    {
+                      "lit": "extend"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "POST /accounts/{account_id}/queues/{queue_id}/messages/peek",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "POST",
+                  "o": "/accounts/{account_id}/queues/{queue_id}/messages/peek",
+                  "q": {
+                    "$action": "message_peek",
+                    "exist": [
+                      "account_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "queue_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "messages"
+                    },
+                    {
+                      "lit": "peek"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "POST /accounts/{account_id}/queues/{queue_id}/messages/preview",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "POST",
+                  "o": "/accounts/{account_id}/queues/{queue_id}/messages/preview",
+                  "q": {
+                    "$action": "message_preview",
+                    "exist": [
+                      "account_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "queue_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "messages"
+                    },
+                    {
+                      "lit": "preview"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "POST /accounts/{account_id}/queues/{queue_id}/messages/preview/ack",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "POST",
+                  "o": "/accounts/{account_id}/queues/{queue_id}/messages/preview/ack",
+                  "q": {
+                    "exist": [
+                      "account_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "queue_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "messages"
+                    },
+                    {
+                      "lit": "preview"
+                    },
+                    {
+                      "lit": "ack"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "POST /accounts/{account_id}/queues/{queue_id}/messages/pull",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "POST",
+                  "o": "/accounts/{account_id}/queues/{queue_id}/messages/pull",
+                  "q": {
+                    "$action": "message_pull",
+                    "exist": [
+                      "account_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "queue_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "messages"
+                    },
+                    {
+                      "lit": "pull"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "POST /accounts/{account_id}/queues/{queue_id}/messages/purge",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "POST",
+                  "o": "/accounts/{account_id}/queues/{queue_id}/messages/purge",
+                  "q": {
+                    "$action": "message_purge",
+                    "exist": [
+                      "account_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "queue_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "messages"
+                    },
+                    {
+                      "lit": "purge"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "POST /accounts/{account_id}/queues/{queue_id}/purge",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "POST",
+                  "o": "/accounts/{account_id}/queues/{queue_id}/purge",
+                  "q": {
+                    "$action": "purge",
+                    "exist": [
+                      "account_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "queue_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "purge"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "POST /accounts/{account_id}/event_subscriptions/subscriptions",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "POST",
+                  "o": "/accounts/{account_id}/event_subscriptions/subscriptions",
+                  "q": {
+                    "exist": [
+                      "account_id"
+                    ]
+                  },
+                  "r": {},
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "event_subscriptions"
+                    },
+                    {
+                      "lit": "subscriptions"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "POST /accounts/{account_id}/queues",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "POST",
+                  "o": "/accounts/{account_id}/queues",
+                  "q": {
+                    "exist": [
+                      "account_id"
+                    ]
+                  },
+                  "r": {},
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "list": {
+              "input": "data",
+              "name": "list",
+              "points": [
+                {
+                  "a": true,
+                  "co": {
+                    "id": "GET /accounts/{account_id}/event_subscriptions/subscriptions",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "a": true,
+                        "ex": "asc",
+                        "k": "query",
+                        "n": "direction",
+                        "or": "direction",
+                        "r": false,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "name",
+                        "k": "query",
+                        "n": "order",
+                        "or": "order",
+                        "r": false,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": 1,
+                        "k": "query",
+                        "n": "page",
+                        "or": "page",
+                        "r": false,
+                        "t": "`$INTEGER`"
+                      },
+                      {
+                        "a": true,
+                        "ex": 20,
+                        "k": "query",
+                        "n": "per_page",
+                        "or": "per_page",
+                        "r": false,
+                        "t": "`$INTEGER`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/accounts/{account_id}/event_subscriptions/subscriptions",
+                  "q": {
+                    "exist": [
+                      "account_id",
+                      "direction",
+                      "order",
+                      "page",
+                      "per_page"
+                    ]
+                  },
+                  "r": {},
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "event_subscriptions"
+                    },
+                    {
+                      "lit": "subscriptions"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "GET /accounts/{account_id}/queues/{queue_id}/consumers",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/accounts/{account_id}/queues/{queue_id}/consumers",
+                  "q": {
+                    "$action": "consumer",
+                    "exist": [
+                      "account_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "queue_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "consumers"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "GET /accounts/{account_id}/queues/{queue_id}/metrics",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/accounts/{account_id}/queues/{queue_id}/metrics",
+                  "q": {
+                    "$action": "metric",
+                    "exist": [
+                      "account_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "queue_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "metrics"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "GET /accounts/{account_id}/queues/{queue_id}/purge",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/accounts/{account_id}/queues/{queue_id}/purge",
+                  "q": {
+                    "$action": "purge",
+                    "exist": [
+                      "account_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "queue_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "purge"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "GET /accounts/{account_id}/queues",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/accounts/{account_id}/queues",
+                  "q": {
+                    "exist": [
+                      "account_id"
+                    ]
+                  },
+                  "r": {},
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "load": {
+              "input": "data",
+              "name": "load",
+              "points": [
+                {
+                  "a": true,
+                  "co": {
+                    "id": "GET /accounts/{account_id}/queues/{queue_id}/consumers/{consumer_id}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "consumer_id",
+                        "or": "consumer_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/accounts/{account_id}/queues/{queue_id}/consumers/{consumer_id}",
+                  "q": {
+                    "exist": [
+                      "account_id",
+                      "consumer_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "queue_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "consumers"
+                    },
+                    {
+                      "var": "consumer_id"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "GET /accounts/{account_id}/queues/{queue_id}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/accounts/{account_id}/queues/{queue_id}",
+                  "q": {
+                    "exist": [
+                      "account_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "queue_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "GET /accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "subscription_id",
+                        "or": "subscription_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}",
+                  "q": {
+                    "exist": [
+                      "account_id",
+                      "subscription_id"
+                    ]
+                  },
+                  "r": {},
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "event_subscriptions"
+                    },
+                    {
+                      "lit": "subscriptions"
+                    },
+                    {
+                      "var": "subscription_id"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "patch": {
+              "input": "data",
+              "name": "patch",
+              "points": [
+                {
+                  "a": true,
+                  "co": {
+                    "id": "PATCH /accounts/{account_id}/queues/{queue_id}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "PATCH",
+                  "o": "/accounts/{account_id}/queues/{queue_id}",
+                  "q": {
+                    "exist": [
+                      "account_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "queue_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "PATCH /accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "subscription_id",
+                        "or": "subscription_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "PATCH",
+                  "o": "/accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}",
+                  "q": {
+                    "exist": [
+                      "account_id",
+                      "subscription_id"
+                    ]
+                  },
+                  "r": {},
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "event_subscriptions"
+                    },
+                    {
+                      "lit": "subscriptions"
+                    },
+                    {
+                      "var": "subscription_id"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "remove": {
+              "input": "data",
+              "name": "remove",
+              "points": [
+                {
+                  "a": true,
+                  "co": {
+                    "id": "DELETE /accounts/{account_id}/queues/{queue_id}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "DELETE",
+                  "o": "/accounts/{account_id}/queues/{queue_id}",
+                  "q": {
+                    "exist": [
+                      "account_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "queue_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "DELETE /accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "subscription_id",
+                        "or": "subscription_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "DELETE",
+                  "o": "/accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}",
+                  "q": {
+                    "exist": [
+                      "account_id",
+                      "subscription_id"
+                    ]
+                  },
+                  "r": {},
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "event_subscriptions"
+                    },
+                    {
+                      "lit": "subscriptions"
+                    },
+                    {
+                      "var": "subscription_id"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "update": {
+              "input": "data",
+              "name": "update",
+              "points": [
+                {
+                  "a": true,
+                  "co": {
+                    "id": "PUT /accounts/{account_id}/queues/{queue_id}/consumers/{consumer_id}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "consumer_id",
+                        "or": "consumer_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "PUT",
+                  "o": "/accounts/{account_id}/queues/{queue_id}/consumers/{consumer_id}",
+                  "q": {
+                    "exist": [
+                      "account_id",
+                      "consumer_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "queue_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "consumers"
+                    },
+                    {
+                      "var": "consumer_id"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
+                    "id": "PUT /accounts/{account_id}/queues/{queue_id}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "account_id",
+                        "or": "account_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "023e105f4ecef8ad9ca31a8372d0c353",
+                        "k": "param",
+                        "n": "id",
+                        "or": "queue_id",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "PUT",
+                  "o": "/accounts/{account_id}/queues/{queue_id}",
+                  "q": {
+                    "exist": [
+                      "account_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "queue_id": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "accounts"
+                    },
+                    {
+                      "var": "account_id"
+                    },
+                    {
+                      "lit": "queues"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "$.main.kit.entity.consumer"
+              ]
+            ]
+          }
+        }
+      },
+      "feature": {
+        "test": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false
+            },
+            "optspec": {
+              "entity": "`$MAP`",
+              "net": "`$MAP`"
+            },
+            "strict": false
+          },
+          "description": "In-memory mock transport for testing without a live server",
+          "hook": {
+            "GetData": {
+              "active": true,
+              "await": false
+            },
+            "GetMatch": {
+              "active": true,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": true,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": true,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PrePoint": {
+              "active": true,
+              "await": false
+            },
+            "PreRequest": {
+              "active": true,
+              "await": false
+            },
+            "PreResponse": {
+              "active": true,
+              "await": false
+            },
+            "PreResult": {
+              "active": true,
+              "await": false
+            },
+            "PreSpec": {
+              "active": true,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": true,
+              "await": false
+            },
+            "SetMatch": {
+              "active": true,
+              "await": false
+            }
+          },
+          "name": "test",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Test transport",
+          "transport": "base",
+          "version": "0.0.1"
+        }
+      },
+      "flow": {
+        "BasicConsumerFlow": {
+          "active": true,
+          "entity": "consumer",
+          "key$": "BasicConsumerFlow",
+          "kind": "basic",
+          "name": "BasicConsumerFlow",
+          "param": {},
+          "step": []
+        },
+        "BasicQueueFlow": {
+          "active": true,
+          "entity": "queue",
+          "key$": "BasicQueueFlow",
+          "kind": "basic",
+          "name": "BasicQueueFlow",
+          "param": {},
+          "step": [
+            {
+              "a": true,
+              "d": {},
+              "i": {
+                "ref": "queue_ref01"
+              },
+              "m": {
+                "account_id": "account01"
+              },
+              "o": "create",
+              "s": [],
+              "v": []
+            },
+            {
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {
+                "account_id": "account01"
+              },
+              "o": "list",
+              "s": [],
+              "v": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "queue_ref01"
+                  }
+                }
+              ]
+            },
+            {
+              "a": true,
+              "d": {
+                "account_id": "account01"
+              },
+              "i": {
+                "ref": "queue_ref01",
+                "srcdatavar": "queue_ref01_data",
+                "suffix": "_up0",
+                "textfield": "jurisdiction"
+              },
+              "m": {},
+              "o": "update",
+              "s": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-queue_ref01"
+                  }
+                }
+              ],
+              "v": []
+            },
+            {
+              "a": true,
+              "d": {},
+              "i": {
+                "ref": "queue_ref01",
+                "srcdatavar": "queue_ref01_data",
+                "suffix": "_dt0"
+              },
+              "m": {
+                "account_id": "account01",
+                "id": "queue01"
+              },
+              "o": "load",
+              "s": [],
+              "v": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-queue_ref01"
+                  }
+                }
+              ]
+            },
+            {
+              "a": true,
+              "d": {},
+              "i": {
+                "ref": "queue_ref01",
+                "suffix": "_rm0"
+              },
+              "m": {
+                "account_id": "account01",
+                "id": "queue01"
+              },
+              "o": "remove",
+              "s": [],
+              "v": []
+            },
+            {
+              "a": true,
+              "d": {},
+              "i": {
+                "suffix": "_rt0"
+              },
+              "m": {
+                "account_id": "account01"
+              },
+              "o": "list",
+              "s": [],
+              "v": [
+                {
+                  "apply": "ItemNotExists",
+                  "def": {
+                    "ref": "queue_ref01"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "info": {
+        "description": "Cloudflare Queues: message queues, consumers, and producers.",
+        "license": {
+          "name": "BSD-3-Clause",
+          "url": "https://opensource.org/licenses/BSD-3-Clause"
+        },
+        "security": {
+          "in": "header",
+          "name": "X-Auth-Email",
+          "prefix": "",
+          "scheme": "api_email",
+          "type": "apiKey"
+        },
+        "servers": [
+          {
+            "description": "Client API",
+            "url": "https://api.cloudflare.com/client/v4"
+          }
+        ],
+        "summary": "Cloudflare Queues: message queues, consumers, and producers.",
+        "title": "Cloudflare Queues",
+        "version": "4.0.0",
+        "website": "https://cloudflare.com"
+      },
+      "option": {},
+      "optspec": {
+        "allow": {
+          "method": "GET,PUT,POST,PATCH,DELETE,OPTIONS",
+          "op": "create,update,load,list,remove,command,direct,graphql"
+        },
+        "apikey": "",
+        "auth": {
+          "basic": false,
+          "in": "",
+          "name": "",
+          "prefix": ""
+        },
+        "base": "http://localhost:8000",
+        "clean": {
+          "keys": "key,token,id"
+        },
+        "entity": {
+          "`$CHILD`": {
+            "`$OPEN`": true,
+            "active": false,
+            "alias": {}
+          }
+        },
+        "extend": "`$ANY`",
+        "headers": {
+          "`$CHILD`": "`$STRING`"
+        },
+        "prefix": "",
+        "secret": "",
+        "server": {
+          "`$CHILD`": ""
+        },
+        "suffix": "",
+        "system": {
+          "fetch": "`$ANY`"
+        },
+        "test": {
+          "active": false,
+          "entity": {
+            "`$OPEN`": true
+          }
+        },
+        "utility": {}
+      },
+      "phase": {
+        "build": {
+          "active": true
+        },
+        "top": {
+          "active": true
+        }
+      },
+      "repo": {
+        "host": "github.com",
+        "path": ""
+      },
+      "target": {
+        "go": {
+          "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "go",
+          "feature": {
+            "fullset": [
+              "test/feature_test.go"
+            ],
+            "trim": true
+          },
+          "module": {
+            "goversion": "",
+            "name": "Cloudflare-queues",
+            "package": "",
+            "path": ""
+          },
+          "name": "go",
+          "origname": "",
+          "output": {
+            "adopt": false,
+            "create": true,
+            "path": "",
+            "repo": "",
+            "root": false,
+            "sdkrel": ""
+          },
+          "package": "@voxgig/sdkgen",
+          "provides": {
+            "schema": true,
+            "sekreto": true
+          },
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "",
+              "package": "",
+              "state": "pending",
+              "url": "",
+              "vault": {
+                "alias": "",
+                "env": "",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            },
+            "version": "0.0.1"
+          },
+          "srcfeature": false,
+          "superseded": [
+            "test/runner_test.go",
+            "test/struct_runner_test.go"
+          ],
+          "title": "Golang"
+        },
+        "go-cli": {
+          "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "go",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
+          "module": {
+            "goversion": "",
+            "name": "Cloudflare-queues",
+            "package": "",
+            "path": ""
+          },
+          "name": "go-cli",
+          "origname": "",
+          "output": {
+            "adopt": false,
+            "create": true,
+            "path": "",
+            "repo": "",
+            "root": false,
+            "sdkrel": ""
+          },
+          "package": "@voxgig/sdkgen",
+          "phase": {
+            "agentguide": {
+              "active": false
+            },
+            "entity": {
+              "active": false
+            },
+            "feature": {
+              "active": false
+            },
+            "readme": {
+              "active": false
+            },
+            "test": {
+              "active": false
+            }
+          },
+          "provides": {},
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "",
+              "package": "",
+              "state": "pending",
+              "url": "",
+              "vault": {
+                "alias": "",
+                "env": "",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "root"
+            },
+            "version": "0.0.1"
+          },
+          "superseded": [],
+          "title": "Go CLI"
+        },
+        "go-mcp": {
+          "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "go",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
+          "module": {
+            "goversion": "",
+            "name": "Cloudflare-queues",
+            "package": "",
+            "path": ""
+          },
+          "name": "go-mcp",
+          "origname": "",
+          "output": {
+            "adopt": false,
+            "create": true,
+            "path": "",
+            "repo": "",
+            "root": false,
+            "sdkrel": ""
+          },
+          "package": "@voxgig/sdkgen",
+          "phase": {
+            "agentguide": {
+              "active": false
+            },
+            "entity": {
+              "active": false
+            },
+            "feature": {
+              "active": false
+            },
+            "readme": {
+              "active": false
+            },
+            "test": {
+              "active": false
+            }
+          },
+          "provides": {},
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "",
+              "package": "",
+              "state": "pending",
+              "url": "",
+              "vault": {
+                "alias": "",
+                "env": "",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "root"
+            },
+            "version": "0.0.1"
+          },
+          "superseded": [],
+          "title": "Go MCP server"
+        },
+        "lua": {
+          "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "--"
+          },
+          "deps": {
+            "dkjson": {
+              "active": true,
+              "kind": "prod",
+              "version": "2.5"
+            }
+          },
+          "ext": "lua",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
+          "module": {
+            "goversion": "",
+            "name": "Cloudflare-queues",
+            "package": "",
+            "path": ""
+          },
+          "name": "lua",
+          "origname": "",
+          "output": {
+            "adopt": false,
+            "create": true,
+            "path": "",
+            "repo": "",
+            "root": false,
+            "sdkrel": ""
+          },
+          "package": "@voxgig/sdkgen",
+          "provides": {
+            "schema": true,
+            "sekreto": true
+          },
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "luarocks",
+              "package": "",
+              "state": "pending",
+              "url": "https://luarocks.org",
+              "vault": {
+                "alias": "luarocks",
+                "env": "LUAROCKS_API_KEY",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            },
+            "version": "0.0.1"
+          },
+          "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.lua"
+          ],
+          "title": "Lua"
+        },
+        "php": {
+          "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "php",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
+          "module": {
+            "goversion": "",
+            "name": "Cloudflare-queues",
+            "package": "",
+            "path": ""
+          },
+          "name": "php",
+          "origname": "",
+          "output": {
+            "adopt": false,
+            "create": true,
+            "path": "",
+            "repo": "",
+            "root": false,
+            "sdkrel": ""
+          },
+          "package": "@voxgig/sdkgen",
+          "provides": {
+            "schema": true,
+            "sekreto": true
+          },
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "packagist",
+              "package": "",
+              "state": "pending",
+              "url": "https://packagist.org",
+              "vault": {
+                "alias": "packagist",
+                "env": "PACKAGIST_API_TOKEN",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            },
+            "version": "0.0.1"
+          },
+          "srcfeature": false,
+          "superseded": [
+            "test/StructRunner.php"
+          ],
+          "title": "PHP"
+        },
+        "py": {
+          "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "#"
+          },
+          "deps": {
+            "requests": {
+              "active": true,
+              "kind": "prod",
+              "version": "2.33"
+            }
+          },
+          "ext": "py",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
+          "module": {
+            "goversion": "",
+            "name": "Cloudflare-queues",
+            "package": "",
+            "path": ""
+          },
+          "name": "py",
+          "origname": "",
+          "output": {
+            "adopt": false,
+            "create": true,
+            "path": "",
+            "repo": "",
+            "root": false,
+            "sdkrel": ""
+          },
+          "package": "@voxgig/sdkgen",
+          "provides": {
+            "schema": true,
+            "sekreto": true
+          },
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "pypi",
+              "package": "",
+              "state": "pending",
+              "url": "https://pypi.org",
+              "vault": {
+                "alias": "pypi",
+                "env": "",
+                "recipe": "pypi"
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            },
+            "version": "0.0.1"
+          },
+          "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.py"
+          ],
+          "title": "Python"
+        },
+        "rb": {
+          "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "#"
+          },
+          "deps": {
+            "json": {
+              "active": true,
+              "kind": "prod",
+              "version": "*"
+            }
+          },
+          "ext": "rb",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
+          "module": {
+            "goversion": "",
+            "name": "Cloudflare-queues",
+            "package": "",
+            "path": ""
+          },
+          "name": "rb",
+          "origname": "",
+          "output": {
+            "adopt": false,
+            "create": true,
+            "path": "",
+            "repo": "",
+            "root": false,
+            "sdkrel": ""
+          },
+          "package": "@voxgig/sdkgen",
+          "provides": {
+            "schema": true,
+            "sekreto": true
+          },
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "rubygems",
+              "package": "",
+              "state": "pending",
+              "url": "https://rubygems.org",
+              "vault": {
+                "alias": "gem",
+                "env": "",
+                "recipe": "gem"
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            },
+            "version": "0.0.1"
+          },
+          "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.rb"
+          ],
+          "title": "Ruby"
+        },
+        "ts": {
+          "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "//"
+          },
+          "deps": {
+            "@types/node": {
+              "active": true,
+              "kind": "dev",
+              "version": "^25.6.0"
+            },
+            "typescript": {
+              "active": true,
+              "kind": "dev",
+              "version": "^5.9.3"
+            }
+          },
+          "ext": "ts",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
+          "module": {
+            "goversion": "",
+            "name": "Cloudflare-queues",
+            "package": "",
+            "path": ""
+          },
+          "name": "ts",
+          "origname": "",
+          "output": {
+            "adopt": false,
+            "create": true,
+            "path": "",
+            "repo": "",
+            "root": false,
+            "sdkrel": ""
+          },
+          "package": "@voxgig/sdkgen",
+          "provides": {
+            "schema": true,
+            "sekreto": true
+          },
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "npm",
+              "package": "",
+              "state": "pending",
+              "url": "https://registry.npmjs.org",
+              "vault": {
+                "alias": "npm",
+                "env": "",
+                "recipe": "npm"
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            },
+            "version": "0.0.1"
+          },
+          "superseded": [
+            "test/runner.ts",
+            "test/vendor/omni/compat.ts",
+            "src/feature/secrets/sekreto/Providers.ts",
+            "src/feature/secrets/sekreto/Sigv4.ts",
+            "src/feature/secrets/sekreto/provider/Registry.ts",
+            "src/feature/secrets/sekreto/provider/http.ts"
+          ],
+          "title": "TypeScript"
+        }
+      },
+      "test": {
+        "live": {
+          "app": false,
+          "base": "",
+          "strict": true
+        }
+      }
+    }
+  },
+  "name": "Cloudflare-queues",
+  "origin": "voxgig-sdk"
+}

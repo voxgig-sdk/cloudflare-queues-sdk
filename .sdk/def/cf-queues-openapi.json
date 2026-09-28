@@ -1,0 +1,3859 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Cloudflare Queues",
+    "description": "Cloudflare Queues: message queues, consumers, and producers.",
+    "version": "4.0.0",
+    "license": {
+      "name": "BSD-3-Clause",
+      "url": "https://opensource.org/licenses/BSD-3-Clause"
+    }
+  },
+  "servers": [
+    {
+      "description": "Client API",
+      "url": "https://api.cloudflare.com/client/v4"
+    }
+  ],
+  "paths": {
+    "/accounts/{account_id}/event_subscriptions/subscriptions": {
+      "get": {
+        "operationId": "subscriptions-list",
+        "summary": "List Event Subscriptions",
+        "description": "Returns a paginated list of Queue event subscriptions with optional sorting and filtering.",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of items per page",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Field to sort by",
+            "schema": {
+              "type": "string",
+              "default": "name",
+              "enum": [
+                "created_at",
+                "name",
+                "enabled",
+                "source"
+              ]
+            }
+          },
+          {
+            "name": "direction",
+            "in": "query",
+            "description": "Sort direction",
+            "schema": {
+              "type": "string",
+              "default": "asc",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of event subscriptions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/mq_event-subscription"
+                          }
+                        },
+                        "result_info": {
+                          "type": "object",
+                          "properties": {
+                            "count": {
+                              "description": "Number of items in current page",
+                              "type": "integer"
+                            },
+                            "page": {
+                              "description": "Current page number",
+                              "type": "integer"
+                            },
+                            "per_page": {
+                              "description": "Items per page",
+                              "type": "integer"
+                            },
+                            "total_count": {
+                              "description": "Total number of items",
+                              "type": "integer"
+                            },
+                            "total_pages": {
+                              "description": "Total number of pages",
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "count",
+                            "total_count",
+                            "page",
+                            "per_page",
+                            "total_pages"
+                          ]
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Queues Read",
+          "Workers Scripts Write",
+          "Workers Scripts Read"
+        ],
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues.subscriptions",
+        "x-fern-sdk-method-name": "list"
+      },
+      "post": {
+        "operationId": "subscriptions-create",
+        "summary": "Create Event Subscription",
+        "description": "Creates an event subscription for a Queue.",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "destination": {
+                    "$ref": "#/components/schemas/mq_event-destination"
+                  },
+                  "enabled": {
+                    "description": "Whether the subscription is active",
+                    "type": "boolean",
+                    "x-auditable": true
+                  },
+                  "events": {
+                    "description": "List of event types this subscription handles",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "minItems": 1,
+                    "x-auditable": true
+                  },
+                  "name": {
+                    "description": "Name of the subscription",
+                    "type": "string",
+                    "x-auditable": true
+                  },
+                  "source": {
+                    "$ref": "#/components/schemas/mq_event-source"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created event subscription",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "$ref": "#/components/schemas/mq_event-subscription"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body or validation errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Queue does not exist or resource not found on source",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Multiple subscriptions on same resource not supported",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues.subscriptions",
+        "x-fern-sdk-method-name": "create"
+      }
+    },
+    "/accounts/{account_id}/event_subscriptions/subscriptions/{subscription_id}": {
+      "delete": {
+        "operationId": "subscriptions-delete",
+        "summary": "Delete Event Subscription",
+        "description": "Deletes an existing Queue event subscription.",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "subscription_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully created event subscription",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "$ref": "#/components/schemas/mq_event-subscription"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues.subscriptions",
+        "x-fern-sdk-method-name": "delete"
+      },
+      "get": {
+        "operationId": "subscriptions-get",
+        "summary": "Get Event Subscription",
+        "description": "Returns an existing Queue event subscription.",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "subscription_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details about an event subscription",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "$ref": "#/components/schemas/mq_event-subscription"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Event subscription does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues.subscriptions",
+        "x-fern-sdk-method-name": "get"
+      },
+      "patch": {
+        "operationId": "subscriptions-patch",
+        "summary": "Update Event Subscription",
+        "description": "Updates an existing Queue event subscription.",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "subscription_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "destination": {
+                    "$ref": "#/components/schemas/mq_event-destination"
+                  },
+                  "enabled": {
+                    "description": "Whether the subscription is active",
+                    "type": "boolean",
+                    "x-auditable": true
+                  },
+                  "events": {
+                    "description": "List of event types this subscription handles",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "minItems": 1,
+                    "x-auditable": true
+                  },
+                  "name": {
+                    "description": "Name of the subscription",
+                    "type": "string",
+                    "x-auditable": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created event subscription",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "$ref": "#/components/schemas/mq_event-subscription"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body or validation errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Queue does not exist or resource not found on source",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues.subscriptions",
+        "x-fern-sdk-method-name": "update",
+        "x-forge-params": {
+          "enabled": {
+            "default": null
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/queues": {
+      "get": {
+        "operationId": "queues-list",
+        "summary": "List Queues",
+        "description": "Returns the queues owned by an account.",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of all Queues that belong to this account",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/mq_queue"
+                          }
+                        },
+                        "result_info": {
+                          "type": "object",
+                          "properties": {
+                            "count": {
+                              "description": "Total number of queues",
+                              "type": "number",
+                              "example": 1
+                            },
+                            "page": {
+                              "description": "Current page within paginated list of queues",
+                              "type": "number",
+                              "example": 1
+                            },
+                            "per_page": {
+                              "description": "Number of queues per page",
+                              "type": "number",
+                              "example": 20
+                            },
+                            "total_count": {
+                              "description": "Total queues available without any search parameters",
+                              "type": "number",
+                              "example": 2000
+                            },
+                            "total_pages": {
+                              "description": "Total pages available without any search parameters",
+                              "type": "number",
+                              "example": 100
+                            }
+                          }
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Queues Read",
+          "Workers Scripts Write",
+          "Workers Scripts Read"
+        ],
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.list"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues",
+        "x-fern-sdk-method-name": "list"
+      },
+      "post": {
+        "operationId": "queues-create",
+        "summary": "Create Queue",
+        "description": "Creates a Queue in the account.",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "jurisdiction": {
+                    "$ref": "#/components/schemas/mq_jurisdiction"
+                  },
+                  "queue_name": {
+                    "$ref": "#/components/schemas/mq_queue-name"
+                  }
+                },
+                "required": [
+                  "queue_name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created Queue",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "$ref": "#/components/schemas/mq_queue"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.create"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues",
+        "x-fern-sdk-method-name": "create"
+      }
+    },
+    "/accounts/{account_id}/queues/{queue_id}": {
+      "delete": {
+        "operationId": "queues-delete",
+        "summary": "Delete Queue",
+        "description": "Deletes a Queue.",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful delete",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-success"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.delete"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues",
+        "x-fern-sdk-method-name": "delete"
+      },
+      "get": {
+        "operationId": "queues-get",
+        "summary": "Get Queue",
+        "description": "Returns details about a specific Queue.",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of the requested Queue",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "$ref": "#/components/schemas/mq_queue"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Queues Read",
+          "Workers Scripts Write",
+          "Workers Scripts Read"
+        ],
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.read"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues",
+        "x-fern-sdk-method-name": "get"
+      },
+      "patch": {
+        "operationId": "queues-update-partial",
+        "summary": "Update Queue",
+        "description": "Updates part of a Queue's configuration.",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/mq_queue"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated Queue",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "type": "object",
+                          "allOf": [
+                            {
+                              "$ref": "#/components/schemas/mq_queue"
+                            }
+                          ]
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.update"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues",
+        "x-fern-sdk-method-name": "edit"
+      },
+      "put": {
+        "operationId": "queues-update",
+        "summary": "Update Queue",
+        "description": "Replaces a Queue's configuration with the supplied configuration. This endpoint does not support partial updates.",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/mq_queue"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated Queue",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "type": "object",
+                          "allOf": [
+                            {
+                              "$ref": "#/components/schemas/mq_queue"
+                            }
+                          ]
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.update"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-ignore": true,
+        "x-fern-sdk-group-name": "queues",
+        "x-fern-sdk-method-name": "update"
+      }
+    },
+    "/accounts/{account_id}/queues/{queue_id}/consumers": {
+      "get": {
+        "operationId": "queues-list-consumers",
+        "summary": "List Queue Consumers",
+        "description": "Returns the consumers configured for a Queue.",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All consumers attached to this Queue",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/mq_consumer-response"
+                          }
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Queues Read",
+          "Workers Scripts Write",
+          "Workers Scripts Read"
+        ],
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.list"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues.consumers",
+        "x-fern-sdk-method-name": "list"
+      },
+      "post": {
+        "operationId": "queues-create-consumer",
+        "summary": "Create a Queue Consumer",
+        "description": "Creates a consumer for a Queue.",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/mq_consumer-request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Create Queue Consumer response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "$ref": "#/components/schemas/mq_consumer-response"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.create"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues.consumers",
+        "x-fern-sdk-method-name": "create"
+      }
+    },
+    "/accounts/{account_id}/queues/{queue_id}/consumers/{consumer_id}": {
+      "delete": {
+        "operationId": "queues-delete-consumer",
+        "summary": "Delete Queue Consumer",
+        "description": "Deletes a consumer from a Queue.",
+        "parameters": [
+          {
+            "name": "consumer_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful consumer delete",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-success"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.delete"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues.consumers",
+        "x-fern-sdk-method-name": "delete"
+      },
+      "get": {
+        "operationId": "queues-get-consumer",
+        "summary": "Get Queue Consumer",
+        "description": "Returns a Queue consumer by identifier.",
+        "parameters": [
+          {
+            "name": "consumer_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get Queue Consumer response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "$ref": "#/components/schemas/mq_consumer-response"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Get Queue Consumer response failure.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Queues Read",
+          "Workers Scripts Write",
+          "Workers Scripts Read"
+        ],
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.read"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues.consumers",
+        "x-fern-sdk-method-name": "get"
+      },
+      "put": {
+        "operationId": "queues-update-consumer",
+        "summary": "Update Queue Consumer",
+        "description": "Replaces a Queue consumer, or creates it if it does not exist.",
+        "parameters": [
+          {
+            "name": "consumer_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/mq_consumer-request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update Queue Consumer response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "$ref": "#/components/schemas/mq_consumer-response"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Update Queue Consumer response failure.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.update"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues.consumers",
+        "x-fern-sdk-method-name": "update"
+      }
+    },
+    "/accounts/{account_id}/queues/{queue_id}/messages": {
+      "post": {
+        "operationId": "queues-push-message",
+        "summary": "Push Message",
+        "description": "Pushes a message to a Queue.",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/mq_queue-message"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful message ingestion.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "type": "object",
+                          "properties": {
+                            "metadata": {
+                              "type": "object",
+                              "properties": {
+                                "metrics": {
+                                  "$ref": "#/components/schemas/mq_queue-metrics"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-auditable": false,
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.push"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues.messages",
+        "x-fern-sdk-method-name": "push"
+      }
+    },
+    "/accounts/{account_id}/queues/{queue_id}/messages/ack": {
+      "post": {
+        "operationId": "queues-ack-messages",
+        "summary": "Acknowledge + Retry Queue Messages",
+        "description": "Acknowledges successfully processed Queue messages and retries messages that were not processed successfully.",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "acks": {
+                    "type": "array",
+                    "items": {
+                      "properties": {
+                        "lease_id": {
+                          "$ref": "#/components/schemas/mq_lease-id"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "retries": {
+                    "type": "array",
+                    "items": {
+                      "properties": {
+                        "delay_seconds": {
+                          "$ref": "#/components/schemas/mq_retry-delay"
+                        },
+                        "lease_id": {
+                          "$ref": "#/components/schemas/mq_lease-id"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Details of ACKs and retries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "type": "object",
+                          "properties": {
+                            "ackCount": {
+                              "description": "The number of messages that were succesfully acknowledged.",
+                              "type": "number",
+                              "example": 5
+                            },
+                            "retryCount": {
+                              "description": "The number of messages that were succesfully retried.",
+                              "type": "number",
+                              "example": 5
+                            },
+                            "warnings": {
+                              "description": "Map of lease IDs to warning messages encountered during acknowledgement.",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-auditable": false,
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.ack"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues.messages",
+        "x-fern-sdk-method-name": "ack"
+      }
+    },
+    "/accounts/{account_id}/queues/{queue_id}/messages/batch": {
+      "post": {
+        "operationId": "queues-push-messages",
+        "summary": "Push Message Batch",
+        "description": "Pushes a batch of messages to a Queue.",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/mq_queue-batch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful batch ingestion.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "type": "object",
+                          "properties": {
+                            "metadata": {
+                              "type": "object",
+                              "properties": {
+                                "metrics": {
+                                  "$ref": "#/components/schemas/mq_queue-metrics"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-auditable": false,
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.push"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues.messages",
+        "x-fern-sdk-method-name": "bulk-push"
+      }
+    },
+    "/accounts/{account_id}/queues/{queue_id}/messages/extend": {
+      "post": {
+        "operationId": "queues-extend-messages",
+        "summary": "Extend Message Leases",
+        "description": "Extends message leases without incrementing the messages' `attempts` counters. Each message receives a new lease identifier.",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "extend": {
+                    "type": "array",
+                    "items": {
+                      "properties": {
+                        "lease_id": {
+                          "$ref": "#/components/schemas/mq_lease-id"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "visibility_timeout_ms": {
+                    "$ref": "#/components/schemas/mq_visibility-timeout"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "New lease IDs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "type": "object",
+                          "properties": {
+                            "extendCount": {
+                              "description": "The number of message leases that were succesfully extended.",
+                              "type": "number",
+                              "example": 5
+                            },
+                            "warnings": {
+                              "description": "Map of lease IDs to warning messages encountered during extensions.",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-auditable": false,
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.pull"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues.messages",
+        "x-fern-sdk-method-name": "extend-leases"
+      }
+    },
+    "/accounts/{account_id}/queues/{queue_id}/messages/peek": {
+      "post": {
+        "operationId": "queues-peek-messages",
+        "summary": "Peek Queue Messages",
+        "description": "Peek messages from a Queue without leasing them. Each message includes a ref that can be passed to the purge endpoint, and remains available for subsequent peek or pull operations until it is purged.",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "batch_size": {
+                    "$ref": "#/components/schemas/mq_batch-size"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A batch of peeked messages from the Queue",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "type": "object",
+                          "properties": {
+                            "messages": {
+                              "$ref": "#/components/schemas/mq_queue-peek-batch"
+                            }
+                          }
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-auditable": false,
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.peek"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues.messages",
+        "x-fern-sdk-method-name": "peek"
+      }
+    },
+    "/accounts/{account_id}/queues/{queue_id}/messages/preview": {
+      "post": {
+        "operationId": "queues-preview-messages",
+        "summary": "Preview Queue Messages",
+        "description": "Preview messages from a Queue without leasing them. This deprecated route is retained for compatibility; use the peek endpoint for new integrations.",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "batch_size": {
+                    "$ref": "#/components/schemas/mq_batch-size"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A batch of previewed messages from the Queue",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "type": "object",
+                          "properties": {
+                            "messages": {
+                              "$ref": "#/components/schemas/mq_queue-pull-batch"
+                            }
+                          }
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Queues Read",
+          "Workers Scripts Write",
+          "Workers Scripts Read"
+        ],
+        "x-auditable": false,
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.peek"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-ignore": true,
+        "x-fern-sdk-group-name": "queues.messages",
+        "x-fern-sdk-method-name": "preview"
+      }
+    },
+    "/accounts/{account_id}/queues/{queue_id}/messages/preview/ack": {
+      "post": {
+        "operationId": "queues-ack-preview-messages",
+        "summary": "Delete Previewed Queue Messages",
+        "description": "Delete messages returned by the legacy preview endpoint. This deprecated route is retained for compatibility; use the peek and purge endpoints for new integrations. Deleting messages this way does not count as delivery and does not affect metrics.",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "acks": {
+                    "type": "array",
+                    "items": {
+                      "properties": {
+                        "lease_id": {
+                          "$ref": "#/components/schemas/mq_lease-id"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "retries": {
+                    "type": "array",
+                    "items": {
+                      "properties": {
+                        "delay_seconds": {
+                          "$ref": "#/components/schemas/mq_retry-delay"
+                        },
+                        "lease_id": {
+                          "$ref": "#/components/schemas/mq_lease-id"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Result of acknowledging previewed messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "type": "object",
+                          "properties": {
+                            "warnings": {
+                              "description": "Map of lease IDs to warning messages encountered during acknowledgement.",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-auditable": false,
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.ack"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-ignore": true,
+        "x-fern-sdk-group-name": "queues.messages",
+        "x-fern-sdk-method-name": "ack-preview"
+      }
+    },
+    "/accounts/{account_id}/queues/{queue_id}/messages/pull": {
+      "post": {
+        "operationId": "queues-pull-messages",
+        "summary": "Pull Queue Messages",
+        "description": "Pulls a batch of messages from a Queue for an HTTP pull consumer.",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "batch_size": {
+                    "$ref": "#/components/schemas/mq_batch-size"
+                  },
+                  "visibility_timeout_ms": {
+                    "$ref": "#/components/schemas/mq_visibility-timeout"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A batch of messages in the Queue",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "type": "object",
+                          "properties": {
+                            "message_backlog_count": {
+                              "description": "The number of unacknowledged messages in the queue.",
+                              "type": "number",
+                              "example": 5
+                            },
+                            "messages": {
+                              "$ref": "#/components/schemas/mq_queue-pull-batch"
+                            },
+                            "metadata": {
+                              "type": "object",
+                              "properties": {
+                                "metrics": {
+                                  "$ref": "#/components/schemas/mq_queue-metrics"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-auditable": false,
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.pull"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues.messages",
+        "x-fern-sdk-method-name": "pull"
+      }
+    },
+    "/accounts/{account_id}/queues/{queue_id}/messages/purge": {
+      "post": {
+        "operationId": "queues-purge-messages",
+        "summary": "Purge Peeked Queue Messages",
+        "description": "Delete messages from a Queue by using refs returned by the peek endpoint. Purging messages does not count as delivery and does not affect metrics.",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "refs": {
+                    "type": "array",
+                    "items": {
+                      "properties": {
+                        "ref": {
+                          "$ref": "#/components/schemas/mq_ref"
+                        }
+                      },
+                      "required": [
+                        "ref"
+                      ],
+                      "type": "object"
+                    }
+                  }
+                },
+                "required": [
+                  "refs"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Result of purging peeked messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "type": "object",
+                          "properties": {
+                            "errors": {
+                              "description": "Errors encountered while purging messages.",
+                              "type": "array",
+                              "items": {
+                                "properties": {
+                                  "message": {
+                                    "type": "string"
+                                  }
+                                },
+                                "type": "object"
+                              }
+                            },
+                            "warnings": {
+                              "description": "Map of refs to warning messages encountered during purge.",
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-auditable": false,
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.ack"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues.messages",
+        "x-fern-sdk-method-name": "purge",
+        "x-forge-require-confirmation": "This operation permanently deletes the selected messages from the Queue."
+      }
+    },
+    "/accounts/{account_id}/queues/{queue_id}/metrics": {
+      "get": {
+        "operationId": "queues-get-metrics",
+        "summary": "Get Queue Metrics",
+        "description": "Returns best-effort metrics for a Queue. Values may be approximate due to the distributed nature of Queues.",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Queue metrics.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "$ref": "#/components/schemas/mq_queue-metrics"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              },
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_queue-metrics"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Queues Read",
+          "Workers Scripts Write",
+          "Workers Scripts Read"
+        ],
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues.metrics",
+        "x-fern-sdk-method-name": "get"
+      }
+    },
+    "/accounts/{account_id}/queues/{queue_id}/purge": {
+      "get": {
+        "operationId": "queues-purge-get",
+        "summary": "Get Queue Purge Status",
+        "description": "Returns the status of a Queue purge operation.",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of the requested Queue",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "type": "object",
+                          "properties": {
+                            "completed": {
+                              "description": "Indicates if the last purge operation completed successfully.",
+                              "type": "string",
+                              "readOnly": true,
+                              "x-auditable": true
+                            },
+                            "started_at": {
+                              "description": "Timestamp when the last purge operation started.",
+                              "type": "string",
+                              "readOnly": true,
+                              "x-auditable": true
+                            }
+                          }
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Queues Read",
+          "Workers Scripts Write",
+          "Workers Scripts Read"
+        ],
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.read"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues.purge",
+        "x-fern-sdk-method-name": "status"
+      },
+      "post": {
+        "operationId": "queues-purge",
+        "summary": "Purge Queue",
+        "description": "Starts a purge that deletes all messages from a Queue.",
+        "parameters": [
+          {
+            "name": "queue_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/mq_identifier"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "delete_messages_permanently": {
+                    "description": "Confirms that all messages will be permanently deleted.",
+                    "type": "boolean",
+                    "example": true,
+                    "x-auditable": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated Queue",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/mq_api-v4-success"
+                    },
+                    {
+                      "properties": {
+                        "result": {
+                          "type": "object",
+                          "allOf": [
+                            {
+                              "$ref": "#/components/schemas/mq_queue"
+                            }
+                          ]
+                        }
+                      },
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "4XX": {
+            "description": "Failure response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mq_api-v4-failure"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_email": [],
+            "api_key": [],
+            "api_token": []
+          }
+        ],
+        "tags": [
+          "Queue"
+        ],
+        "x-api-token-group": [
+          "Queues Write",
+          "Workers Scripts Write"
+        ],
+        "x-cfPermissionsRequired": {
+          "enum": [
+            "com.cloudflare.edge.worker.queue.ack"
+          ]
+        },
+        "x-fern-availability": "generally-available",
+        "x-fern-sdk-group-name": "queues.purge",
+        "x-fern-sdk-method-name": "start",
+        "x-forge-require-confirmation": "This operation drops every message in the queue."
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "mq_api-v4-error": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "code": {
+              "type": "integer",
+              "minimum": 1000,
+              "x-auditable": true
+            },
+            "message": {
+              "type": "string",
+              "x-auditable": true
+            }
+          },
+          "required": [
+            "code",
+            "message"
+          ],
+          "type": "object",
+          "uniqueItems": true
+        },
+        "example": [
+          {
+            "code": 7003,
+            "message": "No route for the URI"
+          }
+        ],
+        "minLength": 1
+      },
+      "mq_api-v4-failure": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "$ref": "#/components/schemas/mq_api-v4-error"
+          },
+          "messages": {
+            "$ref": "#/components/schemas/mq_api-v4-message"
+          },
+          "success": {
+            "description": "Indicates if the API call was successful or not.",
+            "type": "boolean",
+            "example": false,
+            "enum": [
+              false
+            ],
+            "x-auditable": true
+          }
+        }
+      },
+      "mq_api-v4-message": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "x-auditable": true
+        },
+        "example": []
+      },
+      "mq_api-v4-success": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "$ref": "#/components/schemas/mq_api-v4-error"
+          },
+          "messages": {
+            "$ref": "#/components/schemas/mq_api-v4-message"
+          },
+          "success": {
+            "description": "Indicates if the API call was successful or not.",
+            "type": "boolean",
+            "enum": [
+              true
+            ],
+            "x-auditable": true
+          }
+        }
+      },
+      "mq_batch-size": {
+        "description": "The maximum number of messages to include in a batch.",
+        "type": "number",
+        "example": 50,
+        "x-auditable": true
+      },
+      "mq_consumer-request": {
+        "description": "Request body for creating or updating a consumer",
+        "type": "object",
+        "discriminator": {
+          "mapping": {
+            "http_pull": "#/components/schemas/mq_http-consumer-request",
+            "worker": "#/components/schemas/mq_worker-consumer-request"
+          },
+          "propertyName": "type"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/mq_worker-consumer-request"
+          },
+          {
+            "$ref": "#/components/schemas/mq_http-consumer-request"
+          }
+        ]
+      },
+      "mq_consumer-response": {
+        "description": "Response body representing a consumer",
+        "type": "object",
+        "discriminator": {
+          "mapping": {
+            "http_pull": "#/components/schemas/mq_http-consumer-response",
+            "worker": "#/components/schemas/mq_worker-consumer-response"
+          },
+          "propertyName": "type"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/mq_worker-consumer-response"
+          },
+          {
+            "$ref": "#/components/schemas/mq_http-consumer-response"
+          }
+        ]
+      },
+      "mq_event-destination": {
+        "description": "Destination configuration for the subscription",
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/mq_event-destination-queue"
+          }
+        ]
+      },
+      "mq_event-destination-queue": {
+        "type": "object",
+        "properties": {
+          "queue_id": {
+            "description": "ID of the target queue",
+            "type": "string",
+            "x-auditable": true
+          },
+          "type": {
+            "description": "Type of destination",
+            "type": "string",
+            "enum": [
+              "queues.queue"
+            ],
+            "x-auditable": true
+          }
+        },
+        "required": [
+          "type",
+          "queue_id"
+        ]
+      },
+      "mq_event-source": {
+        "description": "Source configuration for the subscription",
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/mq_event-source-images"
+          },
+          {
+            "$ref": "#/components/schemas/mq_event-source-kv"
+          },
+          {
+            "$ref": "#/components/schemas/mq_event-source-r2"
+          },
+          {
+            "$ref": "#/components/schemas/mq_event-source-super-slurper"
+          },
+          {
+            "$ref": "#/components/schemas/mq_event-source-vectorize"
+          },
+          {
+            "$ref": "#/components/schemas/mq_event-source-workers-ai-model"
+          },
+          {
+            "$ref": "#/components/schemas/mq_event-source-workers-builds-worker"
+          },
+          {
+            "$ref": "#/components/schemas/mq_event-source-workers-script"
+          },
+          {
+            "$ref": "#/components/schemas/mq_event-source-workflows-workflow"
+          }
+        ]
+      },
+      "mq_event-source-images": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Type of source",
+            "type": "string",
+            "enum": [
+              "images"
+            ],
+            "x-auditable": true
+          }
+        }
+      },
+      "mq_event-source-kv": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Type of source",
+            "type": "string",
+            "enum": [
+              "kv"
+            ],
+            "x-auditable": true
+          }
+        }
+      },
+      "mq_event-source-r2": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Type of source",
+            "type": "string",
+            "enum": [
+              "r2"
+            ],
+            "x-auditable": true
+          }
+        }
+      },
+      "mq_event-source-super-slurper": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Type of source",
+            "type": "string",
+            "enum": [
+              "superSlurper"
+            ],
+            "x-auditable": true
+          }
+        }
+      },
+      "mq_event-source-vectorize": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Type of source",
+            "type": "string",
+            "enum": [
+              "vectorize"
+            ],
+            "x-auditable": true
+          }
+        }
+      },
+      "mq_event-source-workers-ai-model": {
+        "type": "object",
+        "properties": {
+          "model_name": {
+            "description": "Name of the Workers AI model",
+            "type": "string",
+            "x-auditable": true
+          },
+          "type": {
+            "description": "Type of source",
+            "type": "string",
+            "enum": [
+              "workersAi.model"
+            ],
+            "x-auditable": true
+          }
+        }
+      },
+      "mq_event-source-workers-builds-worker": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Type of source",
+            "type": "string",
+            "enum": [
+              "workersBuilds.worker"
+            ],
+            "x-auditable": true
+          },
+          "worker_name": {
+            "description": "Name of the worker",
+            "type": "string",
+            "x-auditable": true
+          }
+        }
+      },
+      "mq_event-source-workers-script": {
+        "type": "object",
+        "properties": {
+          "script_tag": {
+            "description": "Tag of the Worker script",
+            "type": "string",
+            "x-auditable": true
+          },
+          "type": {
+            "description": "Type of source",
+            "type": "string",
+            "enum": [
+              "workers.script"
+            ],
+            "x-auditable": true
+          }
+        }
+      },
+      "mq_event-source-workflows-workflow": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "Type of source",
+            "type": "string",
+            "enum": [
+              "workflows.workflow"
+            ],
+            "x-auditable": true
+          },
+          "workflow_name": {
+            "description": "Name of the workflow",
+            "type": "string",
+            "x-auditable": true
+          }
+        }
+      },
+      "mq_event-subscription": {
+        "type": "object",
+        "properties": {
+          "created_at": {
+            "description": "When the subscription was created",
+            "type": "string",
+            "format": "date-time",
+            "x-auditable": true
+          },
+          "destination": {
+            "$ref": "#/components/schemas/mq_event-destination"
+          },
+          "enabled": {
+            "description": "Whether the subscription is active",
+            "type": "boolean",
+            "x-auditable": true
+          },
+          "events": {
+            "description": "List of event types this subscription handles",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "x-auditable": true
+          },
+          "id": {
+            "description": "Unique identifier for the subscription",
+            "type": "string",
+            "x-auditable": true
+          },
+          "modified_at": {
+            "description": "When the subscription was last modified",
+            "type": "string",
+            "format": "date-time",
+            "x-auditable": true
+          },
+          "name": {
+            "description": "Name of the subscription",
+            "type": "string",
+            "x-auditable": true
+          },
+          "source": {
+            "$ref": "#/components/schemas/mq_event-source"
+          }
+        },
+        "required": [
+          "id",
+          "created_at",
+          "modified_at",
+          "name",
+          "enabled",
+          "source",
+          "destination",
+          "events"
+        ]
+      },
+      "mq_http-consumer-request": {
+        "type": "object",
+        "properties": {
+          "dead_letter_queue": {
+            "$ref": "#/components/schemas/mq_queue-name"
+          },
+          "settings": {
+            "type": "object",
+            "properties": {
+              "batch_size": {
+                "$ref": "#/components/schemas/mq_batch-size"
+              },
+              "max_retries": {
+                "$ref": "#/components/schemas/mq_max-retries"
+              },
+              "retry_delay": {
+                "$ref": "#/components/schemas/mq_retry-delay"
+              },
+              "visibility_timeout_ms": {
+                "$ref": "#/components/schemas/mq_visibility-timeout"
+              }
+            }
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "http_pull"
+            ],
+            "x-auditable": true
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "mq_http-consumer-response": {
+        "type": "object",
+        "properties": {
+          "consumer_id": {
+            "$ref": "#/components/schemas/mq_identifier"
+          },
+          "created_on": {
+            "type": "string",
+            "format": "date-time",
+            "x-auditable": true
+          },
+          "dead_letter_queue": {
+            "description": "Name of the dead letter queue, or empty string if not configured",
+            "type": "string",
+            "x-auditable": true
+          },
+          "queue_name": {
+            "$ref": "#/components/schemas/mq_queue-name"
+          },
+          "settings": {
+            "type": "object",
+            "properties": {
+              "batch_size": {
+                "$ref": "#/components/schemas/mq_batch-size"
+              },
+              "max_retries": {
+                "$ref": "#/components/schemas/mq_max-retries"
+              },
+              "retry_delay": {
+                "$ref": "#/components/schemas/mq_retry-delay"
+              },
+              "visibility_timeout_ms": {
+                "$ref": "#/components/schemas/mq_visibility-timeout"
+              }
+            }
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "http_pull"
+            ],
+            "x-auditable": true
+          }
+        }
+      },
+      "mq_identifier": {
+        "description": "A Resource identifier.",
+        "type": "string",
+        "example": "023e105f4ecef8ad9ca31a8372d0c353",
+        "maxLength": 32,
+        "readOnly": true,
+        "x-auditable": true
+      },
+      "mq_jurisdiction": {
+        "type": "string",
+        "example": "eu",
+        "enum": [
+          "eu",
+          "us",
+          "fedramp"
+        ],
+        "x-auditable": true
+      },
+      "mq_lease-id": {
+        "description": "An ID that represents an \"in-flight\" message that has been pulled from a Queue. You must hold on to this ID and use it to acknowledge this message.",
+        "type": "string",
+        "example": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIn0..Q8p21d7dceR6vUfwftONdQ.JVqZgAS-Zk7MqmqccYtTHeeMElNHaOMigeWdb8LyMOg.T2_HV99CYzGaQuhTyW8RsgbnpTRZHRM6N7UoSaAKeK0",
+        "x-auditable": true
+      },
+      "mq_max-concurrency": {
+        "description": "Maximum number of concurrent consumers that may consume from this Queue. Set to `null` to automatically opt in to the platform's maximum (recommended).",
+        "type": "number",
+        "example": 10,
+        "x-auditable": true
+      },
+      "mq_max-retries": {
+        "description": "The maximum number of retries",
+        "type": "number",
+        "example": 3,
+        "x-auditable": true
+      },
+      "mq_max-wait-time": {
+        "description": "The number of milliseconds to wait for a batch to fill up before attempting to deliver it",
+        "type": "number",
+        "example": 5000,
+        "x-auditable": true
+      },
+      "mq_producer": {
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/mq_worker-producer"
+          },
+          {
+            "$ref": "#/components/schemas/mq_r2-producer"
+          }
+        ]
+      },
+      "mq_queue": {
+        "type": "object",
+        "properties": {
+          "consumers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/mq_consumer-response"
+            },
+            "readOnly": true
+          },
+          "consumers_total_count": {
+            "type": "number",
+            "readOnly": true
+          },
+          "created_on": {
+            "type": "string",
+            "readOnly": true,
+            "x-auditable": true
+          },
+          "jurisdiction": {
+            "$ref": "#/components/schemas/mq_jurisdiction"
+          },
+          "modified_on": {
+            "type": "string",
+            "readOnly": true,
+            "x-auditable": true
+          },
+          "producers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/mq_producer"
+            },
+            "readOnly": true
+          },
+          "producers_total_count": {
+            "type": "number",
+            "readOnly": true,
+            "x-auditable": true
+          },
+          "queue_id": {
+            "type": "string",
+            "readOnly": true,
+            "x-auditable": true
+          },
+          "queue_name": {
+            "$ref": "#/components/schemas/mq_queue-name"
+          },
+          "settings": {
+            "$ref": "#/components/schemas/mq_queue-settings"
+          }
+        }
+      },
+      "mq_queue-batch": {
+        "type": "object",
+        "properties": {
+          "delay_seconds": {
+            "description": "The number of seconds to wait for attempting to deliver this batch to consumers",
+            "type": "number",
+            "example": "text",
+            "x-auditable": true
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/mq_queue-message"
+            }
+          }
+        }
+      },
+      "mq_queue-message": {
+        "allOf": [
+          {
+            "properties": {
+              "delay_seconds": {
+                "description": "The number of seconds to wait for attempting to deliver this message to consumers",
+                "type": "number",
+                "example": "text",
+                "x-auditable": true
+              }
+            },
+            "type": "object"
+          },
+          {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/mq_queue-message-text"
+              },
+              {
+                "$ref": "#/components/schemas/mq_queue-message-json"
+              }
+            ]
+          }
+        ]
+      },
+      "mq_queue-message-json": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "object"
+          },
+          "content_type": {
+            "type": "string",
+            "enum": [
+              "json"
+            ],
+            "x-auditable": true
+          }
+        }
+      },
+      "mq_queue-message-text": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "string"
+          },
+          "content_type": {
+            "type": "string",
+            "enum": [
+              "text"
+            ],
+            "x-auditable": true
+          }
+        }
+      },
+      "mq_queue-metrics": {
+        "description": "Best-effort metrics for the queue. Values may be approximate due to the distributed nature of queues.",
+        "type": "object",
+        "properties": {
+          "backlog_bytes": {
+            "description": "The size in bytes of unacknowledged messages in the queue.",
+            "type": "number",
+            "example": 1024,
+            "x-auditable": true
+          },
+          "backlog_count": {
+            "description": "The number of unacknowledged messages in the queue.",
+            "type": "number",
+            "example": 5,
+            "x-auditable": true
+          },
+          "oldest_message_timestamp_ms": {
+            "description": "Unix timestamp in milliseconds of the oldest unacknowledged message in the queue. Returns 0 if unknown.",
+            "type": "number",
+            "example": 1710950954154,
+            "x-auditable": true
+          }
+        },
+        "required": [
+          "backlog_count",
+          "backlog_bytes",
+          "oldest_message_timestamp_ms"
+        ]
+      },
+      "mq_queue-name": {
+        "type": "string",
+        "example": "example-queue",
+        "x-auditable": true
+      },
+      "mq_queue-peek-batch": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "attempts": {
+              "type": "number",
+              "example": 1,
+              "readOnly": true,
+              "x-auditable": true
+            },
+            "body": {
+              "type": "string",
+              "example": "hello world",
+              "readOnly": true
+            },
+            "id": {
+              "type": "string",
+              "example": "b01b5594f784d0165c2985833f5660dd",
+              "readOnly": true,
+              "x-auditable": true
+            },
+            "metadata": {
+              "type": "object",
+              "example": {
+                "CF-Content-Type": "text",
+                "CF-sourceMessageSource": "dash"
+              },
+              "readOnly": true
+            },
+            "ref": {
+              "$ref": "#/components/schemas/mq_ref"
+            },
+            "timestamp_ms": {
+              "type": "number",
+              "example": 1710950954154,
+              "readOnly": true,
+              "x-auditable": true
+            }
+          },
+          "type": "object"
+        }
+      },
+      "mq_queue-pull-batch": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "attempts": {
+              "type": "number",
+              "example": 1,
+              "readOnly": true,
+              "x-auditable": true
+            },
+            "body": {
+              "type": "string",
+              "example": "hello world",
+              "readOnly": true
+            },
+            "id": {
+              "type": "string",
+              "example": "b01b5594f784d0165c2985833f5660dd",
+              "readOnly": true,
+              "x-auditable": true
+            },
+            "lease_id": {
+              "$ref": "#/components/schemas/mq_lease-id"
+            },
+            "metadata": {
+              "type": "object",
+              "example": {
+                "CF-Content-Type": "text",
+                "CF-sourceMessageSource": "dash"
+              },
+              "readOnly": true
+            },
+            "timestamp_ms": {
+              "type": "number",
+              "example": 1710950954154,
+              "readOnly": true,
+              "x-auditable": true
+            }
+          },
+          "type": "object"
+        }
+      },
+      "mq_queue-settings": {
+        "type": "object",
+        "properties": {
+          "delivery_delay": {
+            "description": "Number of seconds to delay delivery of all messages to consumers.",
+            "type": "number",
+            "example": 5,
+            "x-auditable": true
+          },
+          "delivery_paused": {
+            "description": "Indicates if message delivery to consumers is currently paused.",
+            "type": "boolean",
+            "example": true,
+            "x-auditable": true
+          },
+          "message_retention_period": {
+            "description": "Number of seconds after which an unconsumed message will be delayed.",
+            "type": "number",
+            "example": 345600,
+            "x-auditable": true
+          }
+        }
+      },
+      "mq_r2-producer": {
+        "type": "object",
+        "properties": {
+          "bucket_name": {
+            "type": "string",
+            "x-auditable": true
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "r2_bucket"
+            ],
+            "x-auditable": true
+          }
+        }
+      },
+      "mq_ref": {
+        "description": "An opaque reference to a peeked message. You must hold on to this value and use it to purge the message.",
+        "type": "string",
+        "example": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIn0..Q8p21d7dceR6vUfwftONdQ.JVqZgAS-Zk7MqmqccYtTHeeMElNHaOMigeWdb8LyMOg.T2_HV99CYzGaQuhTyW8RsgbnpTRZHRM6N7UoSaAKeK0",
+        "x-auditable": true
+      },
+      "mq_retry-delay": {
+        "description": "The number of seconds to delay before making the message available for another attempt.",
+        "type": "number",
+        "example": 10,
+        "x-auditable": true
+      },
+      "mq_script-name": {
+        "description": "Name of a Worker",
+        "type": "string",
+        "example": "my-consumer-worker",
+        "x-auditable": true
+      },
+      "mq_visibility-timeout": {
+        "description": "The number of milliseconds that a message is exclusively leased. After the timeout, the message becomes available for another attempt.",
+        "type": "number",
+        "example": 6000,
+        "x-auditable": true
+      },
+      "mq_worker-consumer-request": {
+        "type": "object",
+        "properties": {
+          "dead_letter_queue": {
+            "$ref": "#/components/schemas/mq_queue-name"
+          },
+          "script_name": {
+            "$ref": "#/components/schemas/mq_script-name"
+          },
+          "settings": {
+            "type": "object",
+            "properties": {
+              "batch_size": {
+                "$ref": "#/components/schemas/mq_batch-size"
+              },
+              "max_concurrency": {
+                "$ref": "#/components/schemas/mq_max-concurrency"
+              },
+              "max_retries": {
+                "$ref": "#/components/schemas/mq_max-retries"
+              },
+              "max_wait_time_ms": {
+                "$ref": "#/components/schemas/mq_max-wait-time"
+              },
+              "retry_delay": {
+                "$ref": "#/components/schemas/mq_retry-delay"
+              }
+            }
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "worker"
+            ],
+            "x-auditable": true
+          }
+        },
+        "required": [
+          "type",
+          "script_name"
+        ]
+      },
+      "mq_worker-consumer-response": {
+        "type": "object",
+        "properties": {
+          "consumer_id": {
+            "$ref": "#/components/schemas/mq_identifier"
+          },
+          "created_on": {
+            "type": "string",
+            "format": "date-time",
+            "x-auditable": true
+          },
+          "dead_letter_queue": {
+            "description": "Name of the dead letter queue, or empty string if not configured",
+            "type": "string",
+            "x-auditable": true
+          },
+          "queue_name": {
+            "$ref": "#/components/schemas/mq_queue-name"
+          },
+          "script_name": {
+            "$ref": "#/components/schemas/mq_script-name"
+          },
+          "settings": {
+            "type": "object",
+            "properties": {
+              "batch_size": {
+                "$ref": "#/components/schemas/mq_batch-size"
+              },
+              "max_concurrency": {
+                "$ref": "#/components/schemas/mq_max-concurrency"
+              },
+              "max_retries": {
+                "$ref": "#/components/schemas/mq_max-retries"
+              },
+              "max_wait_time_ms": {
+                "$ref": "#/components/schemas/mq_max-wait-time"
+              },
+              "retry_delay": {
+                "$ref": "#/components/schemas/mq_retry-delay"
+              }
+            }
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "worker"
+            ],
+            "x-auditable": true
+          }
+        }
+      },
+      "mq_worker-producer": {
+        "type": "object",
+        "properties": {
+          "script": {
+            "type": "string",
+            "x-auditable": true
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "worker"
+            ],
+            "x-auditable": true
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "api_email": {
+        "in": "header",
+        "name": "X-Auth-Email",
+        "type": "apiKey"
+      },
+      "api_key": {
+        "in": "header",
+        "name": "X-Auth-Key",
+        "type": "apiKey"
+      },
+      "api_token": {
+        "scheme": "bearer",
+        "type": "http"
+      },
+      "user_service_key": {
+        "in": "header",
+        "name": "X-Auth-User-Service-Key",
+        "type": "apiKey"
+      }
+    }
+  },
+  "security": [
+    {
+      "api_email": [],
+      "api_key": []
+    },
+    {
+      "api_token": []
+    },
+    {
+      "user_service_key": []
+    }
+  ]
+}

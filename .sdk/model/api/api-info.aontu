@@ -1,0 +1,32 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      description: "Cloudflare Queues: message queues, consumers, and producers."
+      license: {
+        name: "BSD-3-Clause"
+        url: "https://opensource.org/licenses/BSD-3-Clause"
+      }
+      security: {
+        in: "header"
+        name: "X-Auth-Email"
+        prefix: ""
+        scheme: "api_email"
+        type: "apiKey"
+      }
+      servers: [
+        {
+          description: "Client API"
+          url: "https://api.cloudflare.com/client/v4"
+        }
+      ]
+      summary: "Cloudflare Queues: message queues, consumers, and producers."
+      title: "Cloudflare Queues"
+      version: "4.0.0"
+      website: "https://cloudflare.com"
+    }
+  }
+}
+
